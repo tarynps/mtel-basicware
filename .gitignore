@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude
+.claude/
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
