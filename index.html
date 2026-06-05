@@ -287,6 +287,8 @@
   .data-tech-row { display: flex; gap: 32px; align-items: center; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--line); flex-wrap: wrap; }
   .data-tech-label { font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--meta); }
   .data-tech-brand { font-family: var(--serif); font-weight: bold; font-size: 18px; color: var(--navy); letter-spacing: -0.5px; }
+  .data-tech-logo { height: 48px; width: auto; object-fit: contain; transition: transform 0.3s ease, filter 0.3s ease; cursor: pointer; }
+  .data-tech-logo:hover { transform: scale(1.1); filter: brightness(1.15); }
 
   /* ============ SLIDE: EXCLUSIVITY ============ */
   .exclusivity { background: var(--white); }
@@ -785,10 +787,10 @@
             <div class="data-tech-row reveal">
               <span class="data-tech-label">TECHNOLOGY BY</span>
               <div style="display:flex;gap:32px;align-items:center;flex-wrap:wrap;">
-                <span class="data-tech-brand">BytePlus</span>
-                <span class="data-tech-brand">TikTok</span>
-                <span class="data-tech-brand">CapCut</span>
-                <span class="data-tech-brand">Douyin</span>
+                <img src="assets/byteplus.png" alt="BytePlus logo" class="data-tech-logo">
+                <img src="assets/tiktok.png" alt="TikTok logo" class="data-tech-logo">
+                <img src="assets/capcut.png" alt="CapCut logo" class="data-tech-logo">
+                <img src="assets/douyin.png" alt="Douyin logo" class="data-tech-logo">
               </div>
             </div>
           </div>
