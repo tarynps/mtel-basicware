@@ -772,15 +772,15 @@
             </div>
             <div class="data-stats reveal">
               <div class="data-stat">
-                <div class="data-stat-num">2.2B</div>
+                <div class="data-stat-num" data-target="2200000000" data-format="billions">2.2B</div>
                 <div class="data-stat-label">Global TikTok users. The AI model's training knowledge base.</div>
               </div>
               <div class="data-stat">
-                <div class="data-stat-num">50M+</div>
+                <div class="data-stat-num" data-target="50000000" data-format="millions">50M+</div>
                 <div class="data-stat-label">TikTok users in Thailand. Over 70% market penetration.</div>
               </div>
               <div class="data-stat">
-                <div class="data-stat-num">#1</div>
+                <div class="data-stat-num" data-target="1" data-format="ordinal">#1</div>
                 <div class="data-stat-label">China's public cloud LLM market share in H1 2025. More than the next several competitors combined. (Source: IDC, 2025)</div>
               </div>
             </div>
@@ -1298,9 +1298,48 @@
     }
   }
 
+  function animateStatNumbers(statsContainer) {
+    const duration = 2000; // 2 seconds
+    const statNums = statsContainer.querySelectorAll('[data-target]');
+
+    statNums.forEach(el => {
+      const target = parseInt(el.dataset.target, 10);
+      const format = el.dataset.format;
+      const startTime = performance.now();
+
+      function updateNumber(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.floor(target * progress);
+
+        if (format === 'billions') {
+          const billions = (current / 1000000000).toFixed(1);
+          el.textContent = billions + 'B';
+        } else if (format === 'millions') {
+          const millions = (current / 1000000).toFixed(0);
+          el.textContent = millions + 'M+';
+        } else if (format === 'ordinal') {
+          el.textContent = '#' + current;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(updateNumber);
+        }
+      }
+
+      requestAnimationFrame(updateNumber);
+    });
+  }
+
   function triggerReveals(slide) {
     slide.querySelectorAll('.reveal').forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), i * 55);
+      setTimeout(() => {
+        el.classList.add('visible');
+        // Trigger stat animation if this is the stats container
+        if (el.classList.contains('data-stats')) {
+          animateStatNumbers(el);
+        }
+      }, i * 55);
     });
   }
 
