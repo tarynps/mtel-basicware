@@ -575,26 +575,6 @@
   .present-launch-btn { color: var(--yellow) !important; opacity: 0.7; }
   .present-launch-btn:hover { opacity: 1 !important; background: rgba(245,197,24,0.15) !important; }
 
-  /* ============ SLIDE 02: ORBITAL ALTERNATIVE ============ */
-  .hero-side-grid {
-    display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
-  }
-  .hero-orbital .hero-copy { text-align: left; }
-  .hero-orbital .hero-copy .hero-sub { margin-left: 0; margin-right: 0; max-width: 480px; }
-  .hero-orbital .hero-copy .eyebrow { justify-content: flex-start; }
-  .hero-orbital-col {
-    position: relative; z-index: 3;
-    height: clamp(380px, 78vh, 680px);
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  }
-  #heroOrbital { width: 100%; height: 100%; display: block; }
-  @media (max-width: 900px) {
-    .hero-side-grid { grid-template-columns: 1fr; }
-    .hero-orbital-col { display: none; }
-  }
-
   /* ============ RESPONSIVE ============ */
   @media (max-width: 1024px) {
     .container { padding: 0 32px; }
@@ -701,28 +681,6 @@
               <div class="marquee-card marquee-card--raw"><img src="logo/Logo-Other-Globalfish.svg" alt="Global Fish" loading="lazy"></div>
               <div class="marquee-card marquee-card--raw"><img src="logo/Logo-Other-Ministryofindustry.svg" alt="Min. Industry" loading="lazy"></div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- SLIDE 0B: HERO ALTERNATIVE — ORBITAL RIGHT COLUMN -->
-  <div class="slide hero hero-orbital" data-state="future" data-logo="dark">
-    <section>
-      <div class="container">
-        <div class="hero-side-grid">
-          <div class="hero-copy">
-            <div class="eyebrow fade-up">mtel × basicware · enterprise ai partner</div>
-            <h1 class="fade-up delay-1">
-              We build, operate, and power AI for<br/>the businesses <span class="accent">shaping Thailand.</span>
-            </h1>
-            <p class="hero-sub fade-up delay-2">
-              One partner. Software house DNA, AI workflow automation, and the ByteDance AI stack converged into a single operating system for modern enterprise.
-            </p>
-          </div>
-          <div class="hero-orbital-col" aria-hidden="true">
-            <canvas id="heroOrbital"></canvas>
           </div>
         </div>
       </div>
@@ -1333,15 +1291,13 @@
 
   // ============ SLIDE TITLES & NOTES ============
   const slideTitles = [
-    'Cover', 'Cover — Orbital', 'Who We Are', 'The Technology', 'Exclusivity',
+    'Cover', 'Who We Are', 'The Technology', 'Exclusivity',
     'The Stack', 'Business Outcomes', 'Two Pillars', 'How We Work',
-    'Industries', 'Case Studies', 'Partnership Model', 'Three Ways to Start',
-    'Pricing'
+    'Industries', 'Case Studies', 'Partnership Model', 'Three Ways to Start', 'Pricing'
   ];
 
   const slideNotes = [
     'Open with the partnership. mtel builds and operates; basicware brings the BytePlus stack. Keep it high-level.',
-    'Alternative hero with orbital partner ecosystem on the right. Use this if the audience responds better to a dynamic visual than the logo wall.',
     'Three capabilities under one roof. Emphasize that they compound: software + automation + intelligence, together.',
     'BytePlus is the enterprise AI division of ByteDance. TikTok, CapCut, and Douyin are proof points of what the data trains on.',
     'Exclusivity is real. mtel × basicware is the only route to this stack in Thailand. Not a reseller, a chosen partner.',
@@ -2038,154 +1994,6 @@
   })();
 
   // ============ SLIDE 02: ORBITAL RENDERER ============
-  (function heroOrbitalRenderer() {
-    const canvas = document.getElementById('heroOrbital');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const heroSlide = canvas.closest('.slide');
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const LOGOS = [
-      ['Realestate-Onebangkok','One Bangkok'],['Realestate-Sansiri','Sansiri'],
-      ['Realestate-Fraser','Frasers'],['Realestate-Theparq','The Parq'],
-      ['Electric-PTT','PTT'],['Electric-Evme','EVme'],['Electric-Sharge','Sharge'],
-      ['Electric-Spectrum','Spectrum'],['Electric-Swapngo','Swap & Go'],
-      ['Fintech-Cryptomind','Cryptomind'],['Fintech-Merkle','Merkle'],['Fintech-100x','100x'],
-      ['Fintech-Imbee','imBee'],['Fintech-Beatsquares','BeatSquares'],['Fintech-Elkrem','Elkrem'],
-      ['Entertainment-Major','Major Cineplex'],['Entertainment-Ticketmelon','Ticketmelon'],
-      ['Entertainment-Coolism','COOLISM'],['Entertainment-Nickelodeon','Nickelodeon'],
-      ['Entertainment-RSmall','RS Mall'],['Entertainment-Moov','Moov'],
-      ['Other-Mc',"McDonald's"],['Other-Anatara','Anantara'],['Other-AOT','AOT'],
-      ['Other-Thaipass','Thaipass'],['Other-CTFLife','CTF Life'],['Other-Rentyl','Rentyl'],
-      ['Other-BCC','BCC'],['Other-dropp','dropp'],['Other-Flow','Flow'],
-      ['Other-Jaga','Jaga'],['Other-Sipman','Sipman'],['Other-Police','Police'],
-      ['Other-Globalfish','Global Fish'],['Other-Ministryofindustry','Min. Industry'],
-    ];
-    const RAW = new Set(['Entertainment-Major','Entertainment-Nickelodeon','Electric-Swapngo',
-      'Fintech-Beatsquares','Other-Ministryofindustry','Other-Globalfish','Other-Police']);
-    const imgs = {};
-    LOGOS.forEach(([slug]) => { const img = new Image(); img.src = 'logo/Logo-' + slug + '.svg'; imgs[slug] = img; });
-
-    let orbits = [];
-    function buildOrbits() {
-      orbits = [
-        { rx: w*0.32, ry: h*0.18, speed: 0.00028, slugs: LOGOS.slice(0,  12).map(l=>l[0]) },
-        { rx: w*0.44, ry: h*0.32, speed: 0.00017, slugs: LOGOS.slice(12, 24).map(l=>l[0]) },
-        { rx: w*0.50, ry: h*0.44, speed: 0.00011, slugs: LOGOS.slice(24, 35).map(l=>l[0]) },
-      ];
-    }
-    const CONN_COUNT = 7;
-    let connections = [], lastConnUpdate = -99999;
-    let w = 0, h = 0, cx = 0, cy = 0, dpr = 1;
-    let rafId = null, running = false;
-
-    function rrect(x, y, rw, rh, r) {
-      ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+rw-r,y);
-      ctx.arcTo(x+rw,y,x+rw,y+r,r); ctx.lineTo(x+rw,y+rh-r);
-      ctx.arcTo(x+rw,y+rh,x+rw-r,y+rh,r); ctx.lineTo(x+r,y+rh);
-      ctx.arcTo(x,y+rh,x,y+rh-r,r); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
-    }
-
-    function resize() {
-      dpr = Math.min(window.devicePixelRatio||1,2);
-      w = canvas.clientWidth; h = canvas.clientHeight;
-      canvas.width = Math.round(w*dpr); canvas.height = Math.round(h*dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      cx = w*0.52; cy = h*0.50; buildOrbits();
-    }
-
-    function nodePos(orbit, li, t) {
-      const angle = (li/orbit.slugs.length)*Math.PI*2 + t*orbit.speed;
-      return { x: cx + orbit.rx*Math.cos(angle), y: cy + orbit.ry*Math.sin(angle) };
-    }
-
-    function refreshConnections(t) {
-      if (t - lastConnUpdate < 4000) return;
-      lastConnUpdate = t;
-      const pool = [];
-      orbits.forEach((o,oi) => o.slugs.forEach((_,li) => pool.push({oi,li})));
-      pool.sort(() => Math.random()-0.5);
-      connections = pool.slice(0,CONN_COUNT).map(({oi,li}) => ({
-        oi, li, phase: Math.random()*Math.PI*2, freq: 0.5+Math.random()*0.8
-      }));
-    }
-
-    function frame(t) {
-      ctx.clearRect(0,0,w,h);
-      refreshConnections(t);
-
-      // Warm glow
-      const bg = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.min(w,h)*0.80);
-      bg.addColorStop(0,'rgba(241,192,74,0.10)'); bg.addColorStop(0.42,'rgba(245,197,24,0.04)');
-      bg.addColorStop(0.80,'rgba(26,26,78,0.01)'); bg.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=bg; ctx.fillRect(0,0,w,h);
-
-      // Connection lines
-      connections.forEach(({oi,li,phase,freq}) => {
-        const p = nodePos(orbits[oi],li,t);
-        const a = 0.10 + 0.22*(0.5+0.5*Math.sin(t*0.001*freq+phase));
-        ctx.strokeStyle='rgba(245,197,24,'+a.toFixed(3)+')'; ctx.lineWidth=0.8;
-        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(p.x,p.y); ctx.stroke();
-      });
-
-      // Orbit rings
-      const ringStyles=[
-        {c:'rgba(245,197,24,0.22)',d:[5,9],lw:1.0},
-        {c:'rgba(26,26,78,0.10)',d:[4,12],lw:0.8},
-        {c:'rgba(26,26,78,0.06)',d:[3,14],lw:0.7},
-      ];
-      orbits.forEach((orbit,oi) => {
-        const rs=ringStyles[oi]||ringStyles[2];
-        ctx.strokeStyle=rs.c; ctx.lineWidth=rs.lw; ctx.setLineDash(rs.d);
-        ctx.beginPath(); ctx.ellipse(cx,cy,orbit.rx,orbit.ry,0,0,Math.PI*2); ctx.stroke();
-      });
-      ctx.setLineDash([]);
-
-      // Hub
-      const haloGrd=ctx.createRadialGradient(cx,cy,0,cx,cy,80);
-      haloGrd.addColorStop(0,'rgba(241,192,74,0.18)'); haloGrd.addColorStop(0.5,'rgba(245,197,24,0.05)'); haloGrd.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=haloGrd; ctx.beginPath(); ctx.arc(cx,cy,80,0,Math.PI*2); ctx.fill();
-      const midGrd=ctx.createRadialGradient(cx,cy,0,cx,cy,44);
-      midGrd.addColorStop(0,'rgba(245,197,24,0.28)'); midGrd.addColorStop(0.6,'rgba(245,197,24,0.08)'); midGrd.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=midGrd; ctx.beginPath(); ctx.arc(cx,cy,44,0,Math.PI*2); ctx.fill();
-      ctx.strokeStyle='rgba(26,26,78,0.18)'; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(cx,cy,17,0,Math.PI*2); ctx.stroke();
-      ctx.strokeStyle='rgba(245,197,24,0.55)'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(cx,cy,10,0,Math.PI*2); ctx.stroke();
-      ctx.fillStyle='rgba(245,197,24,0.95)'; ctx.beginPath(); ctx.arc(cx,cy,4,0,Math.PI*2); ctx.fill();
-
-      // Hub badge
-      // Hub — transparent, just dot + label (no card background)
-      ctx.fillStyle='#F5C518'; ctx.beginPath(); ctx.arc(cx-38,cy-0.5,3.5,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='#1A1A4E'; ctx.font='700 8.5px "DM Sans",sans-serif'; ctx.textAlign='center';
-      ctx.fillText('MTEL × BASICWARE',cx+8,cy+3);
-
-      // Logo nodes (depth sorted)
-      const depthScale=[1.0,0.72,0.45];
-      const allNodes=[];
-      orbits.forEach((orbit,oi) => orbit.slugs.forEach((slug,li) => {
-        const p=nodePos(orbit,li,t); allNodes.push({slug,x:p.x,y:p.y,oi});
-      }));
-      allNodes.sort((a,b) => a.y-b.y);
-      allNodes.forEach(({slug,x,y,oi}) => {
-        const ds=depthScale[oi]??0.45, TW=100,TH=48,hW=TW/2,hH=TH/2;
-        const img=imgs[slug];
-        if(img&&img.complete&&img.naturalWidth>0){
-          const iA=ds<0.5?ds*0.32:0.60*ds;
-          ctx.save();
-          if(!RAW.has(slug)){ctx.filter='brightness(0)';ctx.globalAlpha=iA;}
-          else{ctx.globalAlpha=Math.min(0.92,iA*1.2);}
-          ctx.drawImage(img,x-hW+4,y-hH+3,TW-8,TH-6); ctx.restore();
-        }
-      });
-      rafId = requestAnimationFrame(frame);
-    }
-
-    function start(){if(running)return;running=true;resize();if(prefersReduced){frame(0);if(rafId){cancelAnimationFrame(rafId);rafId=null;}return;}rafId=requestAnimationFrame(frame);}
-    function stop(){running=false;if(rafId){cancelAnimationFrame(rafId);rafId=null;}ctx.clearRect(0,0,w,h);}
-    function sync(){if(heroSlide.dataset.state==='active')start();else stop();}
-    new MutationObserver(sync).observe(heroSlide,{attributes:true,attributeFilter:['data-state']});
-    window.addEventListener('resize',()=>{if(running)resize();});
-    sync();
-  })();
 
   document.querySelectorAll('.industry-tab').forEach(tab => {
     tab.addEventListener('click', () => {
