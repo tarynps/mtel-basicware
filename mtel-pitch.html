@@ -6,7 +6,7 @@
 <title>mtel · We build, operate, and power AI for the businesses shaping Thailand</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #1a1a4e;
@@ -293,14 +293,20 @@
   .data-tech-logo:hover { transform: scale(1.1); filter: brightness(1.15); }
 
   /* ============ SLIDE: EXCLUSIVITY ============ */
-  .exclusivity { background: var(--white); }
+  .exclusivity { background: radial-gradient(ellipse at 0% 100%, rgba(168, 148, 220, 0.28) 0%, transparent 55%), radial-gradient(ellipse at 100% 0%, rgba(168, 148, 220, 0.12) 0%, transparent 45%), var(--white); }
   .exclusivity section { justify-content: center; }
-  .exclusivity .inner { text-align: center; max-width: 820px; margin: 0 auto; }
-  .exclusivity .lock { width: 52px; height: 52px; background: var(--yellow); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 28px; font-size: 22px; }
-  .exclusivity h2 { font-size: clamp(32px, 4vw, 56px); line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 24px; }
+  .exclusivity .inner { text-align: center; max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .excl-illustration { margin-bottom: 20px; }
+  .excl-illustration img { height: 190px; width: auto; object-fit: contain; }
+  .excl-brand { margin-bottom: 18px; }
+  .excl-byteplus-logo { height: 34px; width: auto; object-fit: contain; }
+  .exclusivity h2 { font-size: clamp(30px, 3.8vw, 52px); line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 18px; }
   .exclusivity h2 strong { color: var(--yellow); font-style: italic; }
-  .exclusivity .lede-large { font-size: 17px; line-height: 1.65; color: var(--body); margin: 0 auto 16px; }
-  .exclusivity .small { font-size: 12px; color: var(--meta); letter-spacing: 0.5px; margin-top: 24px; }
+  .excl-body { margin-bottom: 4px; }
+  .excl-body p { font-size: 16px; line-height: 1.65; color: var(--body); margin-bottom: 10px; }
+  .excl-body p:last-child { margin-bottom: 0; }
+  .excl-body strong { color: var(--navy); }
+  .excl-badge { display: inline-block; border: 1.5px solid rgba(59, 130, 246, 0.55); border-radius: 999px; padding: 11px 28px; font-size: 13px; font-weight: 600; color: rgb(59, 130, 246); letter-spacing: 0.3px; margin-top: 22px; }
 
   /* ============ SLIDE: THE STACK ============ */
   .stack { background: var(--off-white); }
@@ -342,17 +348,28 @@
   .process-step li::before { content: '→'; color: var(--yellow); font-weight: bold; font-size: 11px; line-height: 1.5; }
 
   /* ============ SLIDE: OUTCOMES ============ */
-  .outcomes { background: var(--navy); color: var(--white); }
-  .outcomes .eyebrow { color: var(--yellow); }
-  .outcomes .eyebrow::before { background: var(--yellow); }
-  .outcomes h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 40px; }
-  .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .outcome-cell { padding: 28px 24px; border-right: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
-  .outcome-cell:nth-child(3n) { border-right: none; }
-  .outcome-cell:nth-last-child(-n+3) { border-bottom: none; }
-  .outcome-cell .label { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 10px; }
-  .outcome-cell .value { font-family: var(--serif); font-weight: bold; font-size: clamp(32px, 3vw, 44px); color: var(--yellow); line-height: 1; letter-spacing: -1.2px; margin-bottom: 10px; }
-  .outcome-cell .desc { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .outcomes { background: radial-gradient(ellipse 55% 45% at 78% 8%, #f8ff80 0%, transparent 55%), radial-gradient(ellipse 50% 45% at 15% 85%, #fffae0 0%, transparent 50%), radial-gradient(ellipse 45% 42% at 65% 80%, #ffdece 0%, transparent 50%), #ffffff; }
+  .outcomes .eyebrow { color: var(--navy); }
+  .outcomes .eyebrow::before { background: var(--navy); }
+  .outcomes h2 { color: var(--navy); font-size: clamp(28px, 3.2vw, 46px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 0; }
+  .outcomes h2 .accent { color: #E8A020; font-weight: 700; font-style: normal; }
+  .outcomes section { align-items: center; }
+  .outcomes-layout { display: grid; grid-template-columns: 380px 1fr; gap: 48px; align-items: center; }
+  .outcomes-left .eyebrow { margin-bottom: 16px; }
+  .outcomes-cards { display: flex; align-items: flex-start; }
+  .outcomes-col { display: flex; flex-direction: column; flex: 0 0 auto; }
+  .outcomes-col:nth-child(2) { margin-top: 55px; margin-left: -38px; }
+  .outcomes-col:nth-child(3) { margin-top: 110px; margin-left: -38px; }
+  .outcome-card { position: relative; width: 240px; min-height: 200px; padding: 28px 28px 60px 28px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; transition: transform 0.25s ease; cursor: pointer; }
+  .outcome-card::before { content: ''; position: absolute; inset: 0; background: #fff; clip-path: polygon(0% 0%, 75% 0%, 100% 25%, 100% 100%, 25% 100%, 0% 75%); filter: drop-shadow(0 4px 16px rgba(0,0,0,0.07)); z-index: 0; transition: filter 0.25s ease; }
+  .outcome-card > * { position: relative; z-index: 1; }
+  .outcome-card + .outcome-card { margin-top: -15px; }
+  .outcome-card:hover { z-index: 5; transform: translateY(-4px); }
+  .outcome-card:hover::before { filter: drop-shadow(3px 0 0 #E8A020) drop-shadow(-3px 0 0 #E8A020) drop-shadow(0 3px 0 #E8A020) drop-shadow(0 -3px 0 #E8A020) drop-shadow(3px 3px 0 #E8A020) drop-shadow(-3px -3px 0 #E8A020) drop-shadow(3px -3px 0 #E8A020) drop-shadow(-3px 3px 0 #E8A020); }
+  .outcome-card-prefix { font-size: 13px; font-weight: 300; color: #888; margin-bottom: 4px; }
+  .outcome-card-num { font-size: 52px; font-weight: 300; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; }
+  .outcome-card-title { font-size: 15px; font-weight: 700; color: #1a1f3c; margin-bottom: 8px; }
+  .outcome-card-desc { font-size: 13px; font-weight: 400; line-height: 1.45; color: #555; }
 
   /* ============ SLIDE: INDUSTRIES ============ */
   .industries { background: var(--white); }
@@ -625,7 +642,8 @@
   @media (max-width: 640px) {
     .container { padding: 0 20px; }
     .slide-logo { left: 20px; top: 16px; }
-    .who-pillars, .process-steps, .case-grid, .data-stats, .outcomes-grid, .pricing-factors { grid-template-columns: 1fr; }
+    .who-pillars, .process-steps, .case-grid, .data-stats, .outcomes-cards, .pricing-factors { grid-template-columns: 1fr; }
+    .outcomes-layout { grid-template-columns: 1fr; }
     .outcome-grid { grid-template-columns: 1fr; }
     .outcome-col { border-right: none; border-bottom: 1px solid var(--line); }
     .logo-grid { grid-template-columns: repeat(3, 1fr); }
@@ -810,11 +828,18 @@
     <section>
       <div class="container">
         <div class="inner reveal">
-          <div class="lock">🔐</div>
-          <h2>BytePlus doesn't<br/>sell to <strong>everyone.</strong></h2>
-          <p class="lede-large">They choose their partners. In Thailand, that partner is <strong style="color:var(--navy);">Mtel</strong>.</p>
-          <p class="lede-large" style="margin-top:14px;">No reseller marketplace. No procurement portal. You are among the first companies in Thailand with access to this stack.</p>
-          <p class="small">Exclusive Thailand partnership · BytePlus Enterprise</p>
+          <div class="excl-illustration">
+            <img src="assets/byteplus-stack-3d.png" alt="BytePlus stack illustration">
+          </div>
+          <div class="excl-brand">
+            <img src="assets/byteplus.png" alt="BytePlus" class="excl-byteplus-logo">
+          </div>
+          <h2>Doesn't sell to <strong>everyone.</strong></h2>
+          <div class="excl-body">
+            <p>They choose their partners. In Thailand, that partner is <strong>Mtel.</strong><br>No reseller marketplace. No procurement portal.</p>
+            <p>You are among the first companies in Thailand with access to this stack.</p>
+          </div>
+          <div class="excl-badge">Exclusive Thailand partnership &nbsp;|&nbsp; BytePlus Enterprise</div>
         </div>
       </div>
     </section>
@@ -880,43 +905,58 @@
   </div>
 
   <!-- SLIDE 6: OUTCOMES -->
-  <div class="slide outcomes" data-state="future" data-logo="inv">
-    <section class="top-align">
+  <!-- SLIDE 6: OUTCOMES -->
+  <div class="slide outcomes" data-state="future" data-logo="dark">
+    <section>
       <div class="container">
-        <div class="reveal">
-          <div class="eyebrow">business outcomes</div>
-          <h2>What changes when AI <span class="accent">becomes operational.</span></h2>
-        </div>
-        <div class="outcomes-grid">
-          <div class="outcome-cell reveal">
-            <div class="label">Reduction in workload</div>
-            <div class="value">30–80%</div>
-            <div class="desc">Hours freed from repetitive, low-value tasks, redirected to strategy.</div>
+        <div class="outcomes-layout">
+          <div class="outcomes-left reveal">
+            <div class="eyebrow">business outcomes</div>
+            <h2>What changes when AI <span class="accent">becomes operational.</span></h2>
           </div>
-          <div class="outcome-cell reveal">
-            <div class="label">Lower operational cost</div>
-            <div class="value">20–68%</div>
-            <div class="desc">Fewer handoffs, less rework, right-sized AI infrastructure.</div>
-          </div>
-          <div class="outcome-cell reveal">
-            <div class="label">Faster operations</div>
-            <div class="value">3–5×</div>
-            <div class="desc">Approvals, reporting, and response cycles that used to take days.</div>
-          </div>
-          <div class="outcome-cell reveal">
-            <div class="label">Increased visibility</div>
-            <div class="value">100%</div>
-            <div class="desc">Real-time dashboards across workflows so leadership sees what's happening, live.</div>
-          </div>
-          <div class="outcome-cell reveal">
-            <div class="label">Faster response time</div>
-            <div class="value">&lt;2 min</div>
-            <div class="desc">AI-powered support and internal triage eliminate queue times.</div>
-          </div>
-          <div class="outcome-cell reveal">
-            <div class="label">Average payback period</div>
-            <div class="value">3 mo.</div>
-            <div class="desc">Most enterprise engagements deliver 5–10× first-year ROI.</div>
+          <div class="outcomes-cards">
+            <div class="outcomes-col">
+              <div class="outcome-card reveal">
+                <div class="outcome-card-prefix">Up to</div>
+                <div class="outcome-card-num" data-target="80" data-format="percent-range" data-prefix="30–">30–80%</div>
+                <div class="outcome-card-title">Reduction in workload</div>
+                <div class="outcome-card-desc">Hours freed from repetitive, low-value tasks, redirected to strategy.</div>
+              </div>
+              <div class="outcome-card reveal">
+                <div class="outcome-card-prefix">Complete</div>
+                <div class="outcome-card-num" data-target="100" data-format="percent">100%</div>
+                <div class="outcome-card-title">Increased visibility</div>
+                <div class="outcome-card-desc">Real-time dashboards across workflows so leadership sees what's happening, live.</div>
+              </div>
+            </div>
+            <div class="outcomes-col">
+              <div class="outcome-card reveal">
+                <div class="outcome-card-prefix">Up to</div>
+                <div class="outcome-card-num" data-target="68" data-format="percent-range" data-prefix="20–">20–68%</div>
+                <div class="outcome-card-title">Lower operational cost</div>
+                <div class="outcome-card-desc">Fewer handoffs, less rework, right-sized AI infrastructure.</div>
+              </div>
+              <div class="outcome-card reveal">
+                <div class="outcome-card-prefix">Under</div>
+                <div class="outcome-card-num" data-target="2" data-format="minutes">&lt;2 min</div>
+                <div class="outcome-card-title">Faster response time</div>
+                <div class="outcome-card-desc">AI-powered support and internal triage eliminate queue times.</div>
+              </div>
+            </div>
+            <div class="outcomes-col">
+              <div class="outcome-card reveal">
+                <div class="outcome-card-prefix">Around</div>
+                <div class="outcome-card-num" data-target="5" data-format="multiplier-range" data-prefix="3–">3–5×</div>
+                <div class="outcome-card-title">Faster operations</div>
+                <div class="outcome-card-desc">Approvals, reporting, and response cycles that used to take days.</div>
+              </div>
+              <div class="outcome-card reveal">
+                <div class="outcome-card-prefix">Around</div>
+                <div class="outcome-card-num" data-target="3" data-format="months">3 mo.</div>
+                <div class="outcome-card-title">Average payback period</div>
+                <div class="outcome-card-desc">Most enterprise engagements deliver 5–10× first-year ROI.</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1323,6 +1363,16 @@
           el.textContent = millions + 'M+';
         } else if (format === 'ordinal') {
           el.textContent = '#' + current;
+        } else if (format === 'percent-range') {
+          el.textContent = (el.dataset.prefix || '') + current + '%';
+        } else if (format === 'percent') {
+          el.textContent = current + '%';
+        } else if (format === 'multiplier-range') {
+          el.textContent = (el.dataset.prefix || '') + current + '×';
+        } else if (format === 'minutes') {
+          el.textContent = '<' + current + ' min';
+        } else if (format === 'months') {
+          el.textContent = current + ' mo.';
         }
 
         if (progress < 1) {
@@ -1338,8 +1388,11 @@
     slide.querySelectorAll('.reveal').forEach((el, i) => {
       setTimeout(() => {
         el.classList.add('visible');
-        // Trigger stat animation if this is the stats container
+        // Trigger stat animation if this is the stats container or an outcome card
         if (el.classList.contains('data-stats')) {
+          animateStatNumbers(el);
+        }
+        if (el.classList.contains('outcome-card') && el.querySelector('[data-target]')) {
           animateStatNumbers(el);
         }
       }, i * 55);
