@@ -156,7 +156,7 @@
     display: flex; flex-direction: column; gap: 20px;
   }
   .hero h1 {
-    font-size: clamp(26px, 2.9vw, 42px); line-height: 1.14;
+    font-size: clamp(35px, 4vw, 56px); line-height: 1.14;
     letter-spacing: -1.2px; margin-bottom: 18px;
   }
   /* Gradient highlight for "shaping Thailand." in the hero only */
@@ -193,7 +193,7 @@
   }
   .marquee-card--raw img { filter: none; opacity: 0.92; }
   @media (max-width: 900px) { .hero-ecosystem { display: none; } }
-  .hero-copy { text-align: center; max-width: 800px; margin-left: auto; margin-right: auto; }
+  .hero-copy { text-align: center; max-width: 840px; margin-left: auto; margin-right: auto; }
   .hero-sub {
     font-size: 14.5px; line-height: 1.68; color: #4B5563;
     margin-bottom: 28px; max-width: 640px; margin-left: auto; margin-right: auto;
@@ -232,29 +232,29 @@
   /* ============ SLIDE: WHO WE ARE ============ */
   .who { background: var(--off-white); }
   .section-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 36px; }
-  .section-intro h2 { font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; }
+  .section-intro h2 { font-size: clamp(30px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; }
   .lede { font-size: 15px; line-height: 1.65; color: var(--body); max-width: 680px; }
-  .who-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .who-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; width: 100%; }
   .pillar {
     background: transparent; border-radius: 0;
     border: none; border-right: 1px solid var(--line);
-    display: flex; flex-direction: column; padding: 0 28px 48px 0;
+    display: flex; flex-direction: column; padding: 0 28px 48px 28px; min-width: 0;
   }
+  .pillar:first-child { padding-left: 0; }
   .pillar:last-child { border-right: none; padding-right: 0; }
-  .pillar:not(:first-child) { padding-left: 28px; }
   .pillar { cursor: pointer; }
   .pillar:hover { }
   .pillar-img { overflow: hidden; }
   .pillar-img img { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .pillar:hover .pillar-img img { transform: scale(1.12); }
   .pillar-img {
-    background: transparent; height: 300px;
+    background: transparent; height: 220px;
     display: flex; align-items: center; justify-content: center; overflow: hidden;
     margin-bottom: 32px;
   }
   .pillar-img img { width: 100%; height: 100%; object-fit: contain; }
   .pillar-body { display: flex; flex-direction: column; gap: 14px; }
-  .pillar h3 { font-size: clamp(20px, 2vw, 24px); margin: 0; line-height: 1.2; letter-spacing: -0.4px; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pillar h3 { font-size: clamp(24px, 2.5vw, 32px); margin: 0; line-height: 1.2; letter-spacing: -0.4px; color: var(--navy); }
   .pillar p { font-size: 14px; line-height: 1.65; color: var(--body); margin: 0; }
   .pillar-tag { display: inline-block; font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--navy); padding: 5px 13px; background: var(--yellow); border: none; border-radius: 999px; align-self: flex-start; }
 
@@ -265,19 +265,21 @@
     width: 360px; height: 360px;
     background: radial-gradient(circle, rgba(245,197,24,0.08), transparent 60%); pointer-events: none;
   }
-  .data .eyebrow { color: var(--yellow); }
+  .data .eyebrow { color: var(--navy); }
   .data .eyebrow::before { background: var(--yellow); }
-  .data h2 { color: var(--navy); font-size: clamp(28px, 3.5vw, 52px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
+  .data h2 { color: var(--navy); font-size: clamp(30px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
   .data h2 .accent { color: var(--yellow); }
   .data .lede-large { font-size: 15px; line-height: 1.65; color: var(--body); max-width: 700px; margin-bottom: 48px; }
-  .data-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .data-inner { display: grid; grid-template-columns: 13fr 7fr; gap: 48px; align-items: center; }
   .data-content {}
   .data-visual { display: flex; align-items: center; justify-content: center; }
   .data-visual img {
     width: 100%; max-width: 480px;
     mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, black 40%, transparent 75%);
     -webkit-mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, black 40%, transparent 75%);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
+  .data-visual:hover img { transform: scale(1.12); }
   .data-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-top: 1px solid var(--line); padding-top: 32px; max-width: 100%; }
   .data-stat { padding: 0 32px 32px 0; border-right: 1px solid var(--line); }
   .data-stat:nth-child(3n) { padding-right: 0; border-right: none; }
@@ -300,12 +302,34 @@
   .excl-illustration img { height: 190px; width: auto; object-fit: contain; }
   .excl-brand { margin-bottom: 18px; }
   .excl-byteplus-logo { height: 34px; width: auto; object-fit: contain; }
-  .exclusivity h2 { font-size: clamp(30px, 3.8vw, 52px); line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 18px; }
+  .exclusivity h2 { font-size: clamp(30px, 3.2vw, 48px); line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 18px; }
   .exclusivity h2 strong { color: var(--yellow); font-style: italic; }
   .excl-body { margin-bottom: 4px; }
   .excl-body p { font-size: 16px; line-height: 1.65; color: var(--body); margin-bottom: 10px; }
   .excl-body p:last-child { margin-bottom: 0; }
   .excl-body strong { color: var(--navy); }
+  /* StarBorder Animation */
+  @keyframes starBorderRotate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .star-border-wrapper {
+    display: inline-block;
+    position: relative;
+    padding: 2px;
+    border-radius: 999px;
+    background: conic-gradient(from 0deg, #1E3A8A, #3B82F6, #7C3AED, #6D28D9, #1E3A8A);
+    animation: starBorderRotate 4s linear infinite;
+    margin-top: 22px;
+  }
+  .star-border-wrapper .excl-badge {
+    background: var(--white);
+    border: none;
+    margin-top: 0;
+    display: block;
+  }
+
   .excl-badge { display: inline-block; border: 1.5px solid rgba(59, 130, 246, 0.55); border-radius: 999px; padding: 11px 28px; font-size: 13px; font-weight: 600; color: rgb(59, 130, 246); letter-spacing: 0.3px; margin-top: 22px; }
 
   /* ============ SLIDE: THE STACK ============ */
@@ -315,7 +339,7 @@
   .stack-col { padding: 28px 28px 24px; border-right: 1px solid var(--line); position: relative; }
   .stack-col:last-child { border-right: none; }
   .stack-col-num { font-family: var(--serif); font-weight: bold; font-size: 44px; color: var(--yellow); line-height: 1; letter-spacing: -2px; margin-bottom: 12px; }
-  .stack-col h3 { font-size: 20px; margin-bottom: 6px; letter-spacing: -0.5px; line-height: 1.2; }
+  .stack-col h3 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 6px; letter-spacing: -0.5px; line-height: 1.2; }
   .stack-col-desc { font-size: 12px; color: var(--body); line-height: 1.5; margin-bottom: 18px; }
   .stack-col-tag { font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--navy); margin-bottom: 16px; }
   .stack-col ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line-soft); padding-top: 14px; }
@@ -327,13 +351,13 @@
   .pillars-section .eyebrow { color: var(--yellow); }
   .pillars-section .eyebrow::before { background: var(--yellow); }
   .pillars-section .eyebrow { margin-bottom: 16px; }
-  .pillars-section h2 { font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 36px; color: var(--white); }
+  .pillars-section h2 { font-size: clamp(30px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 36px; color: var(--white); }
   .pillars-section h2 .accent { color: var(--yellow); }
   .two-pillars { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,0.10); border-bottom: 1px solid rgba(255,255,255,0.10); }
   .two-pillar { padding: 48px 44px; border-right: 1px solid rgba(255,255,255,0.10); }
   .two-pillar:last-child { border-right: none; }
   .two-pillar-icon { font-family: var(--serif); font-weight: bold; color: var(--yellow); font-size: 13px; letter-spacing: 1.4px; margin-bottom: 20px; }
-  .two-pillar h3 { font-size: clamp(24px, 2.8vw, 40px); margin-bottom: 18px; line-height: 1.1; letter-spacing: -0.8px; color: var(--white); }
+  .two-pillar h3 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 18px; line-height: 1.1; letter-spacing: -0.8px; color: var(--white); }
   .two-pillar p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.60); }
 
   /* ============ SLIDE: CREATE FASTER DEMO ============ */
@@ -347,7 +371,7 @@
   .create-faster-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: center; }
   .create-faster-left .eyebrow { color: var(--yellow); }
   .create-faster-left .eyebrow::before { background: var(--yellow); }
-  .create-faster-left h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
+  .create-faster-left h2 { color: var(--white); font-size: clamp(30px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
   .create-faster-left h2 .accent { color: var(--yellow); }
   .create-faster-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 420px; }
 
@@ -459,7 +483,7 @@
   .understand-layout { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 48px; align-items: center; }
   .understand-left .eyebrow { color: var(--yellow); }
   .understand-left .eyebrow::before { background: var(--yellow); }
-  .understand-left h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
+  .understand-left h2 { color: var(--white); font-size: clamp(30px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
   .understand-left h2 .accent { color: var(--yellow); }
   .understand-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 420px; }
 
@@ -603,7 +627,7 @@
   .process-step:hover { transform: translateY(-3px); }
   .process-step-num { font-family: var(--serif); font-weight: bold; font-size: 64px; color: var(--yellow); line-height: 1; letter-spacing: -3px; position: absolute; top: 16px; right: 24px; opacity: 0.45; }
   .process-step-label { font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--navy); margin-bottom: 12px; }
-  .process-step h3 { font-size: 22px; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .process-step h3 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 12px; letter-spacing: -0.5px; }
   .process-step p { font-size: 13px; line-height: 1.55; color: var(--body); margin-bottom: 18px; }
   .process-step ul { list-style: none; border-top: 1px solid var(--line-soft); padding-top: 14px; }
   .process-step li { font-size: 12px; color: var(--body); line-height: 1.45; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
@@ -613,7 +637,7 @@
   .outcomes { background: radial-gradient(ellipse 55% 45% at 78% 8%, #f8ff80 0%, transparent 55%), radial-gradient(ellipse 50% 45% at 15% 85%, #fffae0 0%, transparent 50%), radial-gradient(ellipse 45% 42% at 65% 80%, #ffdece 0%, transparent 50%), #ffffff; }
   .outcomes .eyebrow { color: var(--navy); }
   .outcomes .eyebrow::before { background: var(--navy); }
-  .outcomes h2 { color: var(--navy); font-size: clamp(28px, 3.2vw, 46px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 0; }
+  .outcomes h2 { color: var(--navy); font-size: clamp(30px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 0; }
   .outcomes h2 .accent { color: var(--yellow); font-weight: 700; font-style: normal; }
   .outcomes section { align-items: center; }
   .outcomes-layout { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center; }
@@ -628,7 +652,7 @@
   .outcome-card + .outcome-card { margin-top: -12px; }
   .outcome-card:hover { z-index: 5; transform: translateY(-4px); filter: drop-shadow(0 0 0 1.5px var(--yellow)) drop-shadow(0 8px 20px rgba(245,197,24,0.2)); }
   .outcome-card-prefix { font-size: 11px; font-weight: 300; color: #888; margin-bottom: 4px; }
-  .outcome-card-num { font-size: clamp(24px, 2.4vw, 36px); font-weight: 300; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .outcome-card-num { font-size: clamp(32px, 3.5vw, 52px); font-weight: bold; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .outcome-card-title { font-size: 13px; font-weight: 700; color: #1a1f3c; margin-bottom: 6px; }
   .outcome-card-desc { font-size: 12px; font-weight: 400; line-height: 1.45; color: #555; }
 
@@ -686,7 +710,7 @@
   .phase { padding: 36px 32px; border-right: 1px solid var(--line); }
   .phase:last-child { border-right: none; }
   .phase-num { font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--yellow); margin-bottom: 18px; }
-  .phase h3 { font-size: 24px; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .phase h3 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 8px; letter-spacing: -0.5px; }
   .phase .who-tag { font-size: 11px; color: var(--meta); letter-spacing: 0.3px; margin-bottom: 16px; }
   .phase p { font-size: 13px; line-height: 1.55; color: var(--body); }
 
@@ -701,7 +725,7 @@
   .way:hover p { color: rgba(255,255,255,0.8); }
   .way:hover .way-cta { color: var(--yellow); border-color: var(--yellow); }
   .way-icon { font-family: var(--serif); font-weight: bold; font-size: 13px; color: var(--yellow); letter-spacing: 1.4px; margin-bottom: 18px; transition: color 0.3s; }
-  .way h3 { font-size: 28px; margin-bottom: 14px; letter-spacing: -0.8px; transition: color 0.3s; }
+  .way h3 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 14px; letter-spacing: -0.8px; transition: color 0.3s; }
   .way p { font-size: 14px; line-height: 1.6; color: var(--body); margin-bottom: 24px; transition: color 0.3s; }
   .way-cta { font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--navy); padding-bottom: 6px; border-bottom: 1px solid var(--navy); display: inline-flex; align-items: center; gap: 7px; transition: all 0.3s; background: none; border-top: none; border-left: none; border-right: none; }
 
@@ -722,7 +746,7 @@
   .cta-grid { display: grid; grid-template-columns: 1fr auto; gap: 64px; align-items: center; position: relative; }
   .cta-slide .eyebrow { color: var(--yellow); }
   .cta-slide .eyebrow::before { background: var(--yellow); }
-  .cta-slide h2 { color: var(--white); font-size: clamp(36px, 4.5vw, 64px); margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.08; }
+  .cta-slide h2 { color: var(--white); font-size: clamp(30px, 3.2vw, 48px); margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.08; }
   .cta-slide h2 span { color: var(--yellow); font-style: italic; }
   .cta-slide p { color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.6; max-width: 500px; }
   .cta-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
@@ -934,9 +958,9 @@
       <div class="container">
         <div class="hero-grid">
           <div class="hero-copy">
-            <div class="eyebrow fade-up">mtel × basicware · enterprise ai partner</div>
+            <div class="eyebrow fade-up">Mtel × basicware · BytePlus</div>
             <h1 class="fade-up delay-1">
-              We build, operate, and power AI for<br/>the businesses <span class="accent">shaping Thailand.</span>
+              We build & operate <span class="accent">AI-powered</span> workflows for businesses <span class="accent">shaping Thailand.</span>
             </h1>
             <p class="hero-sub fade-up delay-2">
               One partner. Software house DNA, AI workflow automation, and the ByteDance AI stack converged into a single operating system for modern enterprise.
@@ -1022,7 +1046,7 @@
             </div>
             <div class="pillar-body">
               <span class="pillar-tag">OPERATION</span>
-              <h3>AI Workflow Operators</h3>
+              <h3>AI Workflow</h3>
               <p>HR, Finance, Operations, and GEO automation: built, deployed, and operated. We don't sell tools. We hand back the hours your team spent on busywork.</p>
             </div>
           </div>
@@ -1100,7 +1124,9 @@
             <p>They choose their partners. In Thailand, that partner is <strong>Mtel.</strong><br>No reseller marketplace. No procurement portal.</p>
             <p>You are among the first companies in Thailand with access to this stack.</p>
           </div>
-          <div class="excl-badge">Exclusive Thailand partnership &nbsp;|&nbsp; BytePlus Enterprise</div>
+          <div class="star-border-wrapper">
+            <div class="excl-badge">Exclusive Thailand partnership &nbsp;|&nbsp; BytePlus Enterprise</div>
+          </div>
         </div>
       </div>
     </section>
@@ -1178,7 +1204,7 @@
             <div class="outcomes-col">
               <div class="outcome-card reveal">
                 <div class="outcome-card-prefix">Up to</div>
-                <div class="outcome-card-num" data-target="80" data-format="percent-range" data-prefix="30–">30–80%</div>
+                <div class="outcome-card-num" data-target="80" data-format="percent">80%</div>
                 <div class="outcome-card-title">Reduction in workload</div>
                 <div class="outcome-card-desc">Hours freed from repetitive, low-value tasks, redirected to strategy.</div>
               </div>
@@ -1192,7 +1218,7 @@
             <div class="outcomes-col">
               <div class="outcome-card reveal">
                 <div class="outcome-card-prefix">Up to</div>
-                <div class="outcome-card-num" data-target="68" data-format="percent-range" data-prefix="20–">20–68%</div>
+                <div class="outcome-card-num" data-target="68" data-format="percent">68%</div>
                 <div class="outcome-card-title">Lower operational cost</div>
                 <div class="outcome-card-desc">Fewer handoffs, less rework, right-sized AI infrastructure.</div>
               </div>
