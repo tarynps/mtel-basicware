@@ -323,15 +323,277 @@
   .stack-col li::before { content: '→ '; color: var(--yellow); font-weight: bold; }
 
   /* ============ SLIDE: TWO PILLARS ============ */
-  .pillars-section { background: var(--white); }
+  .pillars-section { background: var(--navy); }
+  .pillars-section .eyebrow { color: var(--yellow); }
+  .pillars-section .eyebrow::before { background: var(--yellow); }
   .pillars-section .eyebrow { margin-bottom: 16px; }
-  .pillars-section h2 { font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 36px; }
-  .two-pillars { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .two-pillar { padding: 48px 44px; border-right: 1px solid var(--line); }
+  .pillars-section h2 { font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 36px; color: var(--white); }
+  .pillars-section h2 .accent { color: var(--yellow); }
+  .two-pillars { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,0.10); border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .two-pillar { padding: 48px 44px; border-right: 1px solid rgba(255,255,255,0.10); }
   .two-pillar:last-child { border-right: none; }
   .two-pillar-icon { font-family: var(--serif); font-weight: bold; color: var(--yellow); font-size: 13px; letter-spacing: 1.4px; margin-bottom: 20px; }
-  .two-pillar h3 { font-size: clamp(24px, 2.8vw, 40px); margin-bottom: 18px; line-height: 1.1; letter-spacing: -0.8px; }
-  .two-pillar p { font-size: 15px; line-height: 1.6; color: var(--body); }
+  .two-pillar h3 { font-size: clamp(24px, 2.8vw, 40px); margin-bottom: 18px; line-height: 1.1; letter-spacing: -0.8px; color: var(--white); }
+  .two-pillar p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.60); }
+
+  /* ============ SLIDE: CREATE FASTER DEMO ============ */
+  .create-faster { background: var(--navy); position: relative; overflow: hidden; }
+  .create-faster::before {
+    content: ''; position: absolute; top: -120px; right: -80px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(245,197,24,0.10), transparent 65%);
+    pointer-events: none;
+  }
+  .create-faster-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: center; }
+  .create-faster-left .eyebrow { color: var(--yellow); }
+  .create-faster-left .eyebrow::before { background: var(--yellow); }
+  .create-faster-left h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
+  .create-faster-left h2 .accent { color: var(--yellow); }
+  .create-faster-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 420px; }
+
+  /* Demo Card */
+  .cf-card {
+    background: #ffffff; border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .cf-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: var(--meta); text-transform: uppercase; margin-bottom: 14px; }
+
+  /* Input row */
+  .cf-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .cf-input {
+    flex: 1; border: 1.5px solid var(--line); border-radius: 8px;
+    padding: 11px 14px; font-family: var(--sans); font-size: 13px; color: var(--navy);
+    outline: none; background: #fafaf9; transition: border-color 0.2s;
+    min-width: 0;
+  }
+  .cf-input:focus { border-color: var(--yellow); }
+  .cf-generate-btn {
+    flex-shrink: 0; background: var(--navy); color: var(--yellow);
+    border: none; border-radius: 8px; padding: 11px 18px;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .cf-generate-btn:hover { background: var(--navy-soft); transform: translateY(-1px); }
+  .cf-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+  /* Generating loader */
+  .cf-loading { display: none; align-items: center; gap: 8px; padding: 10px 0 4px; font-size: 12px; color: var(--meta); }
+  .cf-loading.active { display: flex; }
+  .cf-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); animation: cfPulse 1.1s ease-in-out infinite; }
+  .cf-dot:nth-child(2) { animation-delay: 0.18s; }
+  .cf-dot:nth-child(3) { animation-delay: 0.36s; }
+  @keyframes cfPulse { 0%,80%,100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+
+  /* Tabs */
+  .cf-tabs { display: flex; gap: 4px; margin-bottom: 14px; background: var(--line-soft); border-radius: 8px; padding: 3px; }
+  .cf-tab {
+    flex: 1; text-align: center; padding: 7px 0;
+    font-size: 11px; font-weight: 600; letter-spacing: 1px; border-radius: 6px;
+    border: none; background: none; cursor: pointer; color: var(--meta);
+    transition: all 0.18s;
+  }
+  .cf-tab.active { background: #fff; color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+  /* Result area */
+  .cf-result-area { display: none; }
+  .cf-result-area.visible { display: block; }
+  .cf-result-panel { display: none; }
+  .cf-result-panel.active { display: block; }
+
+  .cf-placeholder {
+    position: relative; background: var(--line-soft); border-radius: 10px;
+    aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; cursor: pointer; border: 1.5px dashed var(--line);
+    transition: border-color 0.2s;
+  }
+  .cf-placeholder:hover { border-color: var(--yellow); }
+  .cf-placeholder-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--meta);
+    text-transform: uppercase; text-align: center; padding: 0 16px;
+  }
+  .cf-play-btn {
+    position: absolute; width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(26,26,78,0.82); display: flex; align-items: center; justify-content: center;
+    color: var(--yellow); font-size: 16px; transition: transform 0.2s, background 0.2s;
+  }
+  .cf-placeholder:hover .cf-play-btn { transform: scale(1.1); background: var(--navy); }
+  .cf-prompt-used { font-size: 11px; color: var(--meta); margin-top: 8px; line-height: 1.4; font-style: italic; }
+  .cf-expand-hint { font-size: 10px; color: var(--meta); text-align: right; margin-top: 6px; letter-spacing: 0.5px; }
+
+  /* Lightbox */
+  .cf-lightbox {
+    display: none; position: fixed; inset: 0; z-index: 900;
+    background: rgba(10,10,30,0.94); backdrop-filter: blur(12px);
+    align-items: center; justify-content: center;
+  }
+  .cf-lightbox.open { display: flex; }
+  .cf-lightbox-inner { position: relative; width: min(880px, 90vw); }
+  .cf-lightbox-content {
+    background: var(--line-soft); border-radius: 12px;
+    aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .cf-lightbox-label { font-size: 13px; font-weight: 600; color: var(--meta); text-transform: uppercase; letter-spacing: 1px; }
+  .cf-lightbox-prompt { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; text-align: center; font-style: italic; }
+  .cf-lightbox-close {
+    position: absolute; top: -14px; right: -14px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    color: white; font-size: 14px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .cf-lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+  @media (max-width: 1024px) { .create-faster-layout { grid-template-columns: 1fr; gap: 36px; } }
+
+  /* ============ SLIDE: UNDERSTAND DEEPER DEMO ============ */
+  .understand { background: var(--navy); position: relative; overflow: hidden; }
+  .understand::before {
+    content: ''; position: absolute; bottom: -140px; left: -90px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(168,148,220,0.16), transparent 65%);
+    pointer-events: none;
+  }
+  .understand-layout { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 48px; align-items: center; }
+  .understand-left .eyebrow { color: var(--yellow); }
+  .understand-left .eyebrow::before { background: var(--yellow); }
+  .understand-left h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
+  .understand-left h2 .accent { color: var(--yellow); }
+  .understand-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 420px; }
+
+  /* Demo Card — stacked vertically: query on top, dashboard report below */
+  .ud-card {
+    background: #ffffff; border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.06);
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .ud-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: var(--meta); text-transform: uppercase; margin-bottom: 10px; }
+
+  /* Query row (top) */
+  .ud-query .ud-input {
+    width: 100%; border: 1.5px solid var(--line); border-radius: 8px;
+    padding: 11px 14px; font-family: var(--sans); font-size: 13px; color: var(--navy);
+    outline: none; background: #fafaf9; transition: border-color 0.2s;
+    line-height: 1.5; resize: none; min-height: 46px;
+  }
+  .ud-input:focus { border-color: var(--yellow); }
+  .ud-query-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 12px; }
+  .ud-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ud-pill {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.4px; color: var(--navy);
+    background: var(--line-soft); border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 12px; cursor: pointer; transition: all 0.18s;
+  }
+  .ud-pill:hover { background: var(--yellow); border-color: var(--yellow); }
+  .ud-generate-btn {
+    flex-shrink: 0; background: var(--navy); color: var(--yellow);
+    border: none; border-radius: 8px; padding: 11px 20px;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .ud-generate-btn:hover { background: var(--navy-soft); transform: translateY(-1px); }
+  .ud-generate-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+  /* Report — dashboard panel */
+  .ud-report {
+    background: #fafaf9; border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px; position: relative; overflow: hidden;
+  }
+  .ud-report-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  .ud-report-title { font-family: var(--serif); font-weight: bold; font-size: 15px; color: var(--navy); letter-spacing: -0.3px; line-height: 1.2; }
+  .ud-live-badge {
+    flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.6px; color: #92710a;
+    background: rgba(245,197,24,0.18); border-radius: 999px; padding: 4px 9px; white-space: nowrap;
+  }
+  .ud-live-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--yellow); animation: udBlink 1.4s ease-in-out infinite; }
+  @keyframes udBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* Dashboard widget grid */
+  .ud-dash { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ud-widget { background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 12px 13px; }
+  .ud-widget.full { grid-column: 1 / -1; }
+  .ud-widget-head { display: flex; align-items: center; gap: 7px; margin-bottom: 9px; }
+  .ud-widget-icon {
+    width: 17px; height: 17px; border-radius: 5px; background: var(--yellow);
+    display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--navy); flex-shrink: 0;
+  }
+  .ud-widget-title { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--navy); }
+  .ud-widget-body { font-size: 11.5px; line-height: 1.5; color: var(--body); }
+  .ud-widget.reco { background: rgba(245,197,24,0.07); border-color: rgba(245,197,24,0.40); }
+
+  /* Mini table */
+  .ud-table { width: 100%; border-collapse: collapse; }
+  .ud-table th { text-align: left; font-size: 8.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--meta); padding: 4px 4px 6px; border-bottom: 1px solid var(--line); }
+  .ud-table th:not(:first-child), .ud-table td:not(:first-child) { text-align: right; }
+  .ud-table td { font-size: 11px; color: var(--navy); padding: 5px 4px; border-bottom: 1px solid var(--line-soft); }
+  .ud-table tr:last-child td { border-bottom: none; }
+  .ud-table .up { color: #15803d; font-weight: 700; }
+  .ud-table .down { color: #b91c1c; font-weight: 700; }
+
+  /* Bar chart */
+  .ud-bar-row { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; }
+  .ud-bar-row:last-child { margin-bottom: 0; }
+  .ud-bar-name { font-size: 10.5px; font-weight: 600; color: var(--navy); width: 72px; flex-shrink: 0; }
+  .ud-bar-track { flex: 1; height: 7px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .ud-bar-fill { height: 100%; border-radius: 999px; width: 0; transition: width 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .ud-bar-fill.brand { background: var(--navy); }
+  .ud-bar-fill.compA { background: var(--yellow); }
+  .ud-bar-fill.compB { background: #a894dc; }
+  .ud-bar-val { font-size: 10.5px; font-weight: 700; color: var(--navy); width: 30px; text-align: right; flex-shrink: 0; }
+
+  /* Donut (share of voice) */
+  .ud-donut-wrap { display: flex; align-items: center; gap: 14px; }
+  .ud-donut {
+    width: 76px; height: 76px; border-radius: 50%; flex-shrink: 0; position: relative;
+    background: conic-gradient(var(--navy) 0 48%, var(--yellow) 48% 78%, #a894dc 78% 100%);
+    transition: opacity 0.5s ease;
+  }
+  .ud-donut::after { content: ''; position: absolute; inset: 26%; background: #fff; border-radius: 50%; }
+  .ud-legend { display: flex; flex-direction: column; gap: 5px; }
+  .ud-legend-row { display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: var(--navy); }
+  .ud-legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .ud-legend-dot.brand { background: var(--navy); }
+  .ud-legend-dot.compA { background: var(--yellow); }
+  .ud-legend-dot.compB { background: #a894dc; }
+  .ud-legend-val { font-weight: 700; margin-left: auto; }
+
+  /* Recent moves list */
+  .ud-moves { display: flex; flex-direction: column; gap: 7px; }
+  .ud-move { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: var(--navy); line-height: 1.35; }
+  .ud-move-tag {
+    flex-shrink: 0; font-size: 9px; font-weight: 700; letter-spacing: 0.3px;
+    background: var(--line-soft); color: var(--navy); border-radius: 4px; padding: 2px 6px; min-width: 30px; text-align: center;
+  }
+  .ud-move-tag.up { background: rgba(21,128,61,0.12); color: #15803d; }
+  .ud-move-tag.down { background: rgba(185,28,28,0.10); color: #b91c1c; }
+
+  /* Staggered reveal for report widgets */
+  .ud-report .ud-anim { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .ud-report.generating .ud-anim { opacity: 0; transform: translateY(10px); }
+  .ud-report.done .ud-anim { opacity: 1; transform: translateY(0); }
+
+  /* Shimmer overlay while generating */
+  .ud-shimmer {
+    display: none; position: absolute; inset: 0; z-index: 3;
+    background: linear-gradient(100deg, rgba(250,250,249,0) 30%, rgba(245,197,24,0.10) 50%, rgba(250,250,249,0) 70%);
+    background-size: 220% 100%; animation: udShimmer 1.1s linear infinite;
+  }
+  .ud-report.generating .ud-shimmer { display: block; }
+  @keyframes udShimmer { 0% { background-position: 180% 0; } 100% { background-position: -80% 0; } }
+
+  @media (max-width: 1024px) {
+    .understand-layout { grid-template-columns: 1fr; gap: 36px; }
+    .ud-query-actions { flex-direction: column; align-items: stretch; }
+    .ud-generate-btn { width: 100%; }
+  }
+  @media (max-width: 560px) {
+    .ud-dash { grid-template-columns: 1fr; }
+  }
 
   /* ============ SLIDE: HOW WE WORK ============ */
   .process { background: var(--off-white); }
@@ -352,24 +614,23 @@
   .outcomes .eyebrow { color: var(--navy); }
   .outcomes .eyebrow::before { background: var(--navy); }
   .outcomes h2 { color: var(--navy); font-size: clamp(28px, 3.2vw, 46px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 0; }
-  .outcomes h2 .accent { color: #E8A020; font-weight: 700; font-style: normal; }
+  .outcomes h2 .accent { color: var(--yellow); font-weight: 700; font-style: normal; }
   .outcomes section { align-items: center; }
-  .outcomes-layout { display: grid; grid-template-columns: 380px 1fr; gap: 48px; align-items: center; }
+  .outcomes-layout { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center; }
   .outcomes-left .eyebrow { margin-bottom: 16px; }
-  .outcomes-cards { display: flex; align-items: flex-start; }
-  .outcomes-col { display: flex; flex-direction: column; flex: 0 0 auto; }
-  .outcomes-col:nth-child(2) { margin-top: 55px; margin-left: -38px; }
-  .outcomes-col:nth-child(3) { margin-top: 110px; margin-left: -38px; }
-  .outcome-card { position: relative; width: 240px; min-height: 200px; padding: 28px 28px 60px 28px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; transition: transform 0.25s ease; cursor: pointer; }
-  .outcome-card::before { content: ''; position: absolute; inset: 0; background: #fff; clip-path: polygon(0% 0%, 75% 0%, 100% 25%, 100% 100%, 25% 100%, 0% 75%); filter: drop-shadow(0 4px 16px rgba(0,0,0,0.07)); z-index: 0; transition: filter 0.25s ease; }
+  .outcomes-cards { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+  .outcomes-col { display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; }
+  .outcomes-col:nth-child(2) { margin-top: 55px; }
+  .outcomes-col:nth-child(3) { margin-top: 110px; }
+  .outcome-card { position: relative; width: 100%; min-height: 180px; padding: 32px 32px 64px 32px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; transition: transform 0.25s ease, filter 0.25s ease; cursor: pointer; border: 1px solid rgba(0,0,0,0.08); border-radius: 0; background: #fff; clip-path: polygon(0% 0%, 75% 0%, 100% 25%, 100% 100%, 25% 100%, 0% 75%); filter: drop-shadow(0 4px 16px rgba(0,0,0,0.06)); }
+  .outcome-card::before { display: none; }
   .outcome-card > * { position: relative; z-index: 1; }
-  .outcome-card + .outcome-card { margin-top: -15px; }
-  .outcome-card:hover { z-index: 5; transform: translateY(-4px); }
-  .outcome-card:hover::before { filter: drop-shadow(3px 0 0 #E8A020) drop-shadow(-3px 0 0 #E8A020) drop-shadow(0 3px 0 #E8A020) drop-shadow(0 -3px 0 #E8A020) drop-shadow(3px 3px 0 #E8A020) drop-shadow(-3px -3px 0 #E8A020) drop-shadow(3px -3px 0 #E8A020) drop-shadow(-3px 3px 0 #E8A020); }
-  .outcome-card-prefix { font-size: 13px; font-weight: 300; color: #888; margin-bottom: 4px; }
-  .outcome-card-num { font-size: 52px; font-weight: 300; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; }
-  .outcome-card-title { font-size: 15px; font-weight: 700; color: #1a1f3c; margin-bottom: 8px; }
-  .outcome-card-desc { font-size: 13px; font-weight: 400; line-height: 1.45; color: #555; }
+  .outcome-card + .outcome-card { margin-top: -12px; }
+  .outcome-card:hover { z-index: 5; transform: translateY(-4px); filter: drop-shadow(0 0 0 1.5px var(--yellow)) drop-shadow(0 8px 20px rgba(245,197,24,0.2)); }
+  .outcome-card-prefix { font-size: 11px; font-weight: 300; color: #888; margin-bottom: 4px; }
+  .outcome-card-num { font-size: clamp(24px, 2.4vw, 36px); font-weight: 300; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .outcome-card-title { font-size: 13px; font-weight: 700; color: #1a1f3c; margin-bottom: 6px; }
+  .outcome-card-desc { font-size: 12px; font-weight: 400; line-height: 1.45; color: #555; }
 
   /* ============ SLIDE: INDUSTRIES ============ */
   .industries { background: var(--white); }
@@ -656,7 +917,7 @@
 <!-- Fixed logo (top-left on all slides) -->
 <div class="slide-logo">
   <span class="logo" id="logoEl" onclick="goToSlide(0)">
-    <img src="Logo.png" alt="mtel logo" />
+    <img src="mtel logo.png" alt="mtel logo" />
   </span>
 </div>
 
@@ -963,7 +1224,7 @@
   </div>
 
   <!-- SLIDE 7: TWO PILLARS -->
-  <div class="slide pillars-section" data-state="future" data-logo="dark">
+  <div class="slide pillars-section" data-state="future" data-logo="inv">
     <section class="top-align">
       <div class="container">
         <div class="reveal">
@@ -986,7 +1247,229 @@
     </section>
   </div>
 
-  <!-- SLIDE 8: HOW WE WORK -->
+  <!-- SLIDE 8: CREATE FASTER DEMO -->
+  <div class="slide create-faster" data-state="future" data-logo="inv">
+    <section>
+      <div class="container">
+        <div class="create-faster-layout">
+
+          <!-- LEFT: Copy -->
+          <div class="create-faster-left reveal">
+            <div class="eyebrow">create faster</div>
+            <h2>Describe it. <span class="accent">See it.</span></h2>
+            <p>Your idea is the only brief you need. Turn a single sentence into cinematic video, campaign images, or a live website without a production team.</p>
+          </div>
+
+          <!-- RIGHT: Interactive Demo Panel -->
+          <div class="cf-card reveal">
+            <div class="cf-card-label">Try it</div>
+
+            <!-- Input row -->
+            <div class="cf-input-row">
+              <!-- PLACEHOLDER: update the typewriter strings array in the <script> below with your real example prompts -->
+              <input class="cf-input" id="cfInput" type="text" autocomplete="off" spellcheck="false" placeholder="">
+              <button class="cf-generate-btn" id="cfGenBtn">GENERATE →</button>
+            </div>
+
+            <!-- Loading dots -->
+            <div class="cf-loading" id="cfLoading">
+              <div class="cf-dot"></div>
+              <div class="cf-dot"></div>
+              <div class="cf-dot"></div>
+              <span>Generating…</span>
+            </div>
+
+            <!-- Result area (hidden until generated) -->
+            <div class="cf-result-area" id="cfResultArea">
+              <!-- Tabs -->
+              <div class="cf-tabs">
+                <button class="cf-tab active" data-tab="video">▶ Video</button>
+                <button class="cf-tab" data-tab="image">⬜ Image</button>
+              </div>
+
+              <!-- Video panel -->
+              <div class="cf-result-panel active" id="cfPanelVideo">
+                <!-- PLACEHOLDER: replace this div with <video> or <iframe> for the generated video -->
+                <div class="cf-placeholder" id="cfVideoPlaceholder">
+                  <div class="cf-play-btn">▶</div>
+                  <div class="cf-placeholder-label" style="opacity:0">video</div>
+                </div>
+                <div class="cf-prompt-used" id="cfVideoPrompt"></div>
+              </div>
+
+              <!-- Image panel -->
+              <div class="cf-result-panel" id="cfPanelImage">
+                <!-- PLACEHOLDER: replace this div with <img src="your-image.jpg"> -->
+                <div class="cf-placeholder" id="cfImagePlaceholder">
+                  <div class="cf-placeholder-label">[ Replace with generated image ]</div>
+                </div>
+                <div class="cf-prompt-used" id="cfImagePrompt"></div>
+              </div>
+
+              <div class="cf-expand-hint">↗ Click result to expand</div>
+            </div>
+          </div><!-- end cf-card -->
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox overlay (shared, outside slides) -->
+  <div class="cf-lightbox" id="cfLightbox">
+    <div class="cf-lightbox-inner">
+      <button class="cf-lightbox-close" id="cfLightboxClose">✕</button>
+      <div class="cf-lightbox-content" id="cfLightboxContent">
+        <!-- PLACEHOLDER: replace this div with <video> or <img> when real media is available -->
+        <span class="cf-lightbox-label" id="cfLightboxLabel">[ Media Preview ]</span>
+      </div>
+      <div class="cf-lightbox-prompt" id="cfLightboxPrompt"></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: UNDERSTAND DEEPER DEMO -->
+  <div class="slide understand" data-state="future" data-logo="inv">
+    <section>
+      <div class="container">
+        <div class="understand-layout">
+
+          <!-- LEFT: Copy -->
+          <div class="understand-left reveal">
+            <div class="eyebrow">understand deeper</div>
+            <h2>Ask anything. <span class="accent">Get the answer.</span></h2>
+            <p>Type a business question in plain language, get a structured report with market signals, competitor moves, and sentiment shifts. Real-time. No analyst required.</p>
+          </div>
+
+          <!-- RIGHT: Interactive Demo Card (vertical: query on top, dashboard below) -->
+          <div class="ud-card reveal">
+
+            <!-- Query row (top) -->
+            <div class="ud-query">
+              <div class="ud-card-label">Ask a question</div>
+              <!-- PLACEHOLDER: update the typewriter strings array (udPrompts) in the <script> below -->
+              <textarea class="ud-input" id="udInput" rows="1" spellcheck="false" placeholder=""></textarea>
+              <div class="ud-query-actions">
+                <div class="ud-pills">
+                  <button class="ud-pill" data-q="What is the market sentiment for our brand this quarter?">Market sentiment</button>
+                  <button class="ud-pill" data-q="What are the top competitor moves in the last 30 days?">Competitor moves</button>
+                  <button class="ud-pill" data-q="Summarize customer pain points in the SaaS space in 2025.">Customer pain points</button>
+                  <button class="ud-pill" data-q="How does our share of voice compare across SEA?">Share of voice</button>
+                </div>
+                <button class="ud-generate-btn" id="udGenBtn">GENERATE REPORT →</button>
+              </div>
+            </div>
+
+            <!-- Report dashboard (below) -->
+            <!-- PLACEHOLDER: wire this panel to your real intelligence API; data below is illustrative -->
+            <div class="ud-report done" id="udReport">
+              <div class="ud-shimmer"></div>
+
+              <div class="ud-report-head ud-anim" style="transition-delay:0ms">
+                <div class="ud-report-title">Competitor Positioning — SEA Region</div>
+                <span class="ud-live-badge">Live · Just now</span>
+              </div>
+
+              <div class="ud-dash">
+
+                <!-- Summary (full width) -->
+                <div class="ud-widget full ud-anim" style="transition-delay:120ms">
+                  <div class="ud-widget-head">
+                    <span class="ud-widget-icon">≡</span>
+                    <span class="ud-widget-title">Summary</span>
+                  </div>
+                  <div class="ud-widget-body">Primary competitor expanded distribution in Thailand (+3 cities) and launched aggressive pricing in Q2. Social sentiment shifted negative (–14%) following product quality complaints.</div>
+                </div>
+
+                <!-- Key signals table -->
+                <div class="ud-widget ud-anim" style="transition-delay:240ms">
+                  <div class="ud-widget-head">
+                    <span class="ud-widget-icon">▤</span>
+                    <span class="ud-widget-title">Key Signals</span>
+                  </div>
+                  <table class="ud-table">
+                    <thead>
+                      <tr><th>Metric</th><th>You</th><th>Comp. A</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Distribution</td><td>12</td><td class="up">15</td></tr>
+                      <tr><td>Price index</td><td>100</td><td class="down">88</td></tr>
+                      <tr><td>Sentiment Δ</td><td class="up">+6%</td><td class="down">–14%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Market sentiment bars -->
+                <div class="ud-widget ud-anim" style="transition-delay:360ms">
+                  <div class="ud-widget-head">
+                    <span class="ud-widget-icon">▥</span>
+                    <span class="ud-widget-title">Market Sentiment</span>
+                  </div>
+                  <div class="ud-bar-row">
+                    <span class="ud-bar-name">Your brand</span>
+                    <span class="ud-bar-track"><span class="ud-bar-fill brand" data-w="72%"></span></span>
+                    <span class="ud-bar-val">72%</span>
+                  </div>
+                  <div class="ud-bar-row">
+                    <span class="ud-bar-name">Competitor A</span>
+                    <span class="ud-bar-track"><span class="ud-bar-fill compA" data-w="44%"></span></span>
+                    <span class="ud-bar-val">44%</span>
+                  </div>
+                  <div class="ud-bar-row">
+                    <span class="ud-bar-name">Competitor B</span>
+                    <span class="ud-bar-track"><span class="ud-bar-fill compB" data-w="31%"></span></span>
+                    <span class="ud-bar-val">31%</span>
+                  </div>
+                </div>
+
+                <!-- Share of voice donut -->
+                <div class="ud-widget ud-anim" style="transition-delay:480ms">
+                  <div class="ud-widget-head">
+                    <span class="ud-widget-icon">◔</span>
+                    <span class="ud-widget-title">Share of Voice</span>
+                  </div>
+                  <div class="ud-donut-wrap">
+                    <div class="ud-donut" id="udDonut"></div>
+                    <div class="ud-legend">
+                      <div class="ud-legend-row"><span class="ud-legend-dot brand"></span>Your brand<span class="ud-legend-val">48%</span></div>
+                      <div class="ud-legend-row"><span class="ud-legend-dot compA"></span>Competitor A<span class="ud-legend-val">30%</span></div>
+                      <div class="ud-legend-row"><span class="ud-legend-dot compB"></span>Competitor B<span class="ud-legend-val">22%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Recent competitor moves -->
+                <div class="ud-widget ud-anim" style="transition-delay:540ms">
+                  <div class="ud-widget-head">
+                    <span class="ud-widget-icon">⤳</span>
+                    <span class="ud-widget-title">Recent Moves · 30d</span>
+                  </div>
+                  <div class="ud-moves">
+                    <div class="ud-move"><span class="ud-move-tag up">+3</span> New distribution cities, Thailand</div>
+                    <div class="ud-move"><span class="ud-move-tag">Q2</span> Aggressive pricing launch</div>
+                    <div class="ud-move"><span class="ud-move-tag down">–14%</span> Sentiment after complaints</div>
+                  </div>
+                </div>
+
+                <!-- Recommendation (full width, accent) -->
+                <div class="ud-widget reco full ud-anim" style="transition-delay:660ms">
+                  <div class="ud-widget-head">
+                    <span class="ud-widget-icon">★</span>
+                    <span class="ud-widget-title">Recommendation</span>
+                  </div>
+                  <div class="ud-widget-body">Accelerate content in Bangkok &amp; Chiang Mai. Counter pricing pressure with a value-add campaign within 2 weeks.</div>
+                </div>
+
+              </div><!-- end ud-dash -->
+            </div>
+
+          </div><!-- end ud-card -->
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SLIDE 10: HOW WE WORK -->
   <div class="slide process" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
@@ -1430,7 +1913,7 @@
   // ============ SLIDE TITLES & NOTES ============
   const slideTitles = [
     'Cover', 'Who We Are', 'The Technology', 'Exclusivity',
-    'The Stack', 'Business Outcomes', 'Two Pillars', 'How We Work',
+    'The Stack', 'Business Outcomes', 'Two Pillars', 'Create Faster', 'Understand Deeper', 'How We Work',
     'Industries', 'Case Studies', 'Partnership Model', 'Three Ways to Start', 'Pricing'
   ];
 
@@ -1442,6 +1925,8 @@
     'Three layers: Foundation (software), Operations (AI workflows), Intelligence (BytePlus models). Ask which layer matters most.',
     'Lead with the numbers. 30–80% workload reduction, 3–5× faster operations. Let the outcomes do the talking.',
     'Two universal pain points: create content faster, understand customers deeper. Frame everything else as a delivery mechanism for these.',
+    'Live demo moment. Type a prompt or let the typewriter run. Hit Generate, then show Video and Image tabs. Ask: what would you create first?',
+    'Second demo: intelligence. Click a pill (e.g. Competitor moves) and let the report regenerate live. Emphasize real-time signals, no analyst needed.',
     'Three phases. Audit → Automate → Operate. Most clients get their first production workflow live within 6 weeks.',
     'Ask which industry they\'re in before this slide, then jump straight to their tab.',
     'Walk through all three case studies. Ask which resonates most with their situation.',
@@ -1569,6 +2054,213 @@
     others: { label: 'Other Sectors', items: ['AI-powered internal knowledge base & search','Automated reporting & business intelligence','Cross-department workflow orchestration','Custom AI agents tailored to your operations'] }
   };
 
+
+  // ============ SLIDE 08: CREATE FASTER — TYPEWRITER + DEMO ============
+  (function createFasterDemo() {
+    const input      = document.getElementById('cfInput');
+    const genBtn     = document.getElementById('cfGenBtn');
+    const loading    = document.getElementById('cfLoading');
+    const resultArea = document.getElementById('cfResultArea');
+    const videoPanel = document.getElementById('cfPanelVideo');
+    const imagePanel = document.getElementById('cfPanelImage');
+    const videoPrompt = document.getElementById('cfVideoPrompt');
+    const imagePrompt = document.getElementById('cfImagePrompt');
+    const lightbox   = document.getElementById('cfLightbox');
+    const lbClose    = document.getElementById('cfLightboxClose');
+    const lbPrompt   = document.getElementById('cfLightboxPrompt');
+    if (!input) return;
+
+    // PLACEHOLDER: update these strings with your real example prompts
+    const PROMPTS = [
+      '30-sec product video for a skincare brand, golden hour...',
+      'Campaign images for a new coffee launch, minimal aesthetic...',
+      'Landing page for a SaaS tool, dark theme, bold typography...'
+    ];
+
+    let twIdx = 0, twCharIdx = 0, twDeleting = false, twPaused = false;
+    let twTimer = null;
+    let userTyping = false;
+    let lastPromptUsed = '';
+
+    function typeStep() {
+      if (userTyping) return;
+      const current = PROMPTS[twIdx];
+      if (!twDeleting) {
+        twCharIdx++;
+        input.placeholder = current.slice(0, twCharIdx);
+        if (twCharIdx === current.length) {
+          twPaused = true;
+          twTimer = setTimeout(() => { twPaused = false; twDeleting = true; typeStep(); }, 1800);
+          return;
+        }
+      } else {
+        twCharIdx--;
+        input.placeholder = current.slice(0, twCharIdx);
+        if (twCharIdx === 0) {
+          twDeleting = false;
+          twIdx = (twIdx + 1) % PROMPTS.length;
+          twTimer = setTimeout(typeStep, 400);
+          return;
+        }
+      }
+      twTimer = setTimeout(typeStep, twDeleting ? 28 : 52);
+    }
+
+    // Start typewriter when slide becomes active
+    const cfSlide = document.querySelector('.create-faster');
+    if (cfSlide) {
+      new MutationObserver(() => {
+        if (cfSlide.dataset.state === 'active') {
+          if (!userTyping) twTimer = setTimeout(typeStep, 600);
+        } else {
+          clearTimeout(twTimer);
+        }
+      }).observe(cfSlide, { attributes: true, attributeFilter: ['data-state'] });
+    }
+
+    // Stop typewriter when user types
+    input.addEventListener('input', () => {
+      userTyping = input.value.length > 0;
+      if (userTyping) { clearTimeout(twTimer); input.placeholder = ''; }
+      else { input.placeholder = ''; userTyping = false; twCharIdx = 0; twDeleting = false; twTimer = setTimeout(typeStep, 600); }
+    });
+
+    // Generate button
+    genBtn.addEventListener('click', () => {
+      const prompt = input.value.trim() || input.placeholder;
+      if (!prompt) return;
+      lastPromptUsed = prompt;
+      genBtn.disabled = true;
+      resultArea.classList.remove('visible');
+      loading.classList.add('active');
+
+      setTimeout(() => {
+        loading.classList.remove('active');
+        genBtn.disabled = false;
+        videoPrompt.textContent = '"' + prompt + '"';
+        imagePrompt.textContent = '"' + prompt + '"';
+        resultArea.classList.add('visible');
+        // Default to video tab
+        setTab('video');
+      }, 1600);
+    });
+
+    // Tabs
+    document.querySelectorAll('.cf-tab').forEach(tab => {
+      tab.addEventListener('click', () => setTab(tab.dataset.tab));
+    });
+    function setTab(name) {
+      document.querySelectorAll('.cf-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+      videoPanel.classList.toggle('active', name === 'video');
+      imagePanel.classList.toggle('active', name === 'image');
+    }
+
+    // Lightbox
+    function openLightbox(type) {
+      lbPrompt.textContent = '"' + lastPromptUsed + '"';
+      document.getElementById('cfLightboxLabel').textContent = type === 'video'
+        ? '[ Replace with generated video ]'
+        : '[ Replace with generated image ]';
+      lightbox.classList.add('open');
+    }
+    document.getElementById('cfVideoPlaceholder').addEventListener('click', () => openLightbox('video'));
+    document.getElementById('cfImagePlaceholder').addEventListener('click', () => openLightbox('image'));
+    lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+  })();
+
+  // ============ SLIDE 09: UNDERSTAND DEEPER — TYPEWRITER + REPORT ============
+  (function understandDemo() {
+    const input  = document.getElementById('udInput');
+    const genBtn = document.getElementById('udGenBtn');
+    const report = document.getElementById('udReport');
+    const udSlide = document.querySelector('.understand');
+    if (!input || !report) return;
+
+    // PLACEHOLDER: update these strings with your real example prompts
+    const udPrompts = [
+      'How is our top competitor positioned in SEA?',
+      'What is the market sentiment for our brand this quarter?',
+      'Summarize customer pain points in the SaaS space in 2025.',
+      'What are the top competitor moves in the last 30 days?'
+    ];
+
+    let twIdx = 0, twChar = 0, twDeleting = false, twTimer = null, userTyping = false;
+
+    function typeStep() {
+      if (userTyping) return;
+      const cur = udPrompts[twIdx];
+      if (!twDeleting) {
+        twChar++;
+        input.placeholder = cur.slice(0, twChar);
+        if (twChar === cur.length) { twTimer = setTimeout(() => { twDeleting = true; typeStep(); }, 2000); return; }
+      } else {
+        twChar--;
+        input.placeholder = cur.slice(0, twChar);
+        if (twChar === 0) { twDeleting = false; twIdx = (twIdx + 1) % udPrompts.length; twTimer = setTimeout(typeStep, 400); return; }
+      }
+      twTimer = setTimeout(typeStep, twDeleting ? 26 : 48);
+    }
+
+    // Start/stop typewriter with slide visibility
+    if (udSlide) {
+      new MutationObserver(() => {
+        if (udSlide.dataset.state === 'active') {
+          if (!userTyping) twTimer = setTimeout(typeStep, 600);
+          // Animate bars on first reveal
+          setTimeout(fillBars, 400);
+        } else {
+          clearTimeout(twTimer);
+        }
+      }).observe(udSlide, { attributes: true, attributeFilter: ['data-state'] });
+    }
+
+    function stopTypewriter() {
+      userTyping = true; clearTimeout(twTimer); input.placeholder = '';
+    }
+    input.addEventListener('focus', stopTypewriter);
+    input.addEventListener('input', () => {
+      userTyping = input.value.length > 0;
+      if (userTyping) clearTimeout(twTimer);
+    });
+
+    function fillBars() {
+      report.querySelectorAll('.ud-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.w;
+      });
+    }
+    function resetBars() {
+      report.querySelectorAll('.ud-bar-fill').forEach(bar => { bar.style.width = '0'; });
+    }
+
+    // Generate / regenerate report with staggered reveal
+    function runReport() {
+      genBtn.disabled = true;
+      report.classList.remove('done');
+      report.classList.add('generating');
+      resetBars();
+
+      setTimeout(() => {
+        report.classList.remove('generating');
+        report.classList.add('done');
+        genBtn.disabled = false;
+        // Bars animate after their section fades in (~300ms delay)
+        setTimeout(fillBars, 450);
+      }, 1800);
+    }
+
+    genBtn.addEventListener('click', runReport);
+
+    // Quick-select pills: populate input + auto-generate
+    document.querySelectorAll('.ud-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        stopTypewriter();
+        input.value = pill.dataset.q;
+        runReport();
+      });
+    });
+  })();
 
   // ============ HERO "NEURAL CONSTELLATION" — AI × PARTNERSHIP ============
   // One unified gold particle system with two coordinated behavioural layers:
