@@ -156,7 +156,7 @@
     display: flex; flex-direction: column; gap: 20px;
   }
   .hero h1 {
-    font-size: clamp(26px, 2.9vw, 42px); line-height: 1.14;
+    font-size: clamp(48px, 5.5vw, 72px); line-height: 1.14;
     letter-spacing: -1.2px; margin-bottom: 18px;
   }
   /* Gradient highlight for "shaping Thailand." in the hero only */
@@ -354,22 +354,22 @@
   .outcomes h2 { color: var(--navy); font-size: clamp(28px, 3.2vw, 46px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 0; }
   .outcomes h2 .accent { color: #E8A020; font-weight: 700; font-style: normal; }
   .outcomes section { align-items: center; }
-  .outcomes-layout { display: grid; grid-template-columns: 380px 1fr; gap: 48px; align-items: center; }
+  .outcomes-layout { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: center; }
   .outcomes-left .eyebrow { margin-bottom: 16px; }
-  .outcomes-cards { display: flex; align-items: flex-start; }
-  .outcomes-col { display: flex; flex-direction: column; flex: 0 0 auto; }
-  .outcomes-col:nth-child(2) { margin-top: 55px; margin-left: -38px; }
-  .outcomes-col:nth-child(3) { margin-top: 110px; margin-left: -38px; }
-  .outcome-card { position: relative; width: 240px; min-height: 200px; padding: 28px 28px 60px 28px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; transition: transform 0.25s ease; cursor: pointer; }
+  .outcomes-cards { display: flex; align-items: flex-start; gap: 12px; overflow: visible; }
+  .outcomes-col { display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; }
+  .outcomes-col:nth-child(2) { margin-top: 55px; }
+  .outcomes-col:nth-child(3) { margin-top: 110px; }
+  .outcome-card { position: relative; width: 100%; min-height: 180px; padding: 22px 22px 50px 22px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; transition: transform 0.25s ease; cursor: pointer; }
   .outcome-card::before { content: ''; position: absolute; inset: 0; background: #fff; clip-path: polygon(0% 0%, 75% 0%, 100% 25%, 100% 100%, 25% 100%, 0% 75%); filter: drop-shadow(0 4px 16px rgba(0,0,0,0.07)); z-index: 0; transition: filter 0.25s ease; }
   .outcome-card > * { position: relative; z-index: 1; }
-  .outcome-card + .outcome-card { margin-top: -15px; }
+  .outcome-card + .outcome-card { margin-top: -12px; }
   .outcome-card:hover { z-index: 5; transform: translateY(-4px); }
-  .outcome-card:hover::before { filter: drop-shadow(3px 0 0 #E8A020) drop-shadow(-3px 0 0 #E8A020) drop-shadow(0 3px 0 #E8A020) drop-shadow(0 -3px 0 #E8A020) drop-shadow(3px 3px 0 #E8A020) drop-shadow(-3px -3px 0 #E8A020) drop-shadow(3px -3px 0 #E8A020) drop-shadow(-3px 3px 0 #E8A020); }
-  .outcome-card-prefix { font-size: 13px; font-weight: 300; color: #888; margin-bottom: 4px; }
-  .outcome-card-num { font-size: 52px; font-weight: 300; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; }
-  .outcome-card-title { font-size: 15px; font-weight: 700; color: #1a1f3c; margin-bottom: 8px; }
-  .outcome-card-desc { font-size: 13px; font-weight: 400; line-height: 1.45; color: #555; }
+  .outcome-card:hover::before { filter: drop-shadow(3px 0 0 var(--yellow)) drop-shadow(-3px 0 0 var(--yellow)) drop-shadow(0 3px 0 var(--yellow)) drop-shadow(0 -3px 0 var(--yellow)) drop-shadow(3px 3px 0 var(--yellow)) drop-shadow(-3px -3px 0 var(--yellow)) drop-shadow(3px -3px 0 var(--yellow)) drop-shadow(-3px 3px 0 var(--yellow)); }
+  .outcome-card-prefix { font-size: 12px; font-weight: 300; color: #888; margin-bottom: 4px; }
+  .outcome-card-num { font-size: clamp(26px, 2.6vw, 38px); font-weight: 300; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .outcome-card-title { font-size: 13px; font-weight: 700; color: #1a1f3c; margin-bottom: 6px; }
+  .outcome-card-desc { font-size: 12px; font-weight: 400; line-height: 1.45; color: #555; }
 
   /* ============ SLIDE: INDUSTRIES ============ */
   .industries { background: var(--white); }
