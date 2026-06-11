@@ -533,7 +533,29 @@
   .understand-left h2 .accent { color: var(--yellow); }
   .understand-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 420px; }
 
-  /* Demo Card — stacked vertically: query on top, dashboard report below */
+  /* Left copy — collapse on generate (mirrors .create-faster-left) */
+  .understand-left {
+    transition: opacity 0.4s ease, max-height 0.5s 0.1s ease, margin-bottom 0.5s 0.1s ease;
+    max-height: 320px; overflow: hidden;
+  }
+  .understand-left.ud-hidden { opacity: 0; max-height: 0; margin-bottom: -40px; pointer-events: none; }
+
+  /* Card repositions to top-center on generate */
+  .understand.ud-gen-active { overflow: visible; }
+  .understand.ud-gen-active .ud-card {
+    position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
+    width: 740px; z-index: 10;
+    transition: top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Report stage — absolutely positioned below card */
+  .ud-report-stage {
+    display: none; position: absolute; top: 265px;
+    left: 50%; transform: translateX(-50%); width: 740px; z-index: 1;
+  }
+  .ud-report-stage.visible { display: block; }
+
+  /* Demo Card — query panel only (report is now in ud-report-stage) */
   .ud-card {
     background: #ffffff; border-radius: 16px;
     padding: 22px;
@@ -1384,13 +1406,10 @@
             <p>Type a business question in plain language, get a structured report with market signals, competitor moves, and sentiment shifts. Real-time. No analyst required.</p>
           </div>
 
-          <!-- RIGHT: Interactive Demo Card (vertical: query on top, dashboard below) -->
+          <!-- RIGHT: Interactive Demo Card (query only; report appears below on generate) -->
           <div class="ud-card reveal">
-
-            <!-- Query row (top) -->
             <div class="ud-query">
               <div class="ud-card-label">Ask a question</div>
-              <!-- PLACEHOLDER: update the typewriter strings array (udPrompts) in the <script> below -->
               <textarea class="ud-input" id="udInput" rows="1" spellcheck="false" placeholder=""></textarea>
               <div class="ud-query-actions">
                 <div class="ud-pills">
@@ -1403,114 +1422,123 @@
               </div>
             </div>
 
-            <!-- Report dashboard (below) -->
-            <!-- PLACEHOLDER: wire this panel to your real intelligence API; data below is illustrative -->
-            <div class="ud-report done" id="udReport">
-              <div class="ud-shimmer"></div>
-
-              <div class="ud-report-head ud-anim" style="transition-delay:0ms">
-                <div class="ud-report-title">Competitor Positioning — SEA Region</div>
-                <span class="ud-live-badge">Live · Just now</span>
-              </div>
-
-              <div class="ud-dash">
-
-                <!-- Summary (full width) -->
-                <div class="ud-widget full ud-anim" style="transition-delay:120ms">
-                  <div class="ud-widget-head">
-                    <span class="ud-widget-icon">≡</span>
-                    <span class="ud-widget-title">Summary</span>
-                  </div>
-                  <div class="ud-widget-body">Primary competitor expanded distribution in Thailand (+3 cities) and launched aggressive pricing in Q2. Social sentiment shifted negative (–14%) following product quality complaints.</div>
-                </div>
-
-                <!-- Key signals table -->
-                <div class="ud-widget ud-anim" style="transition-delay:240ms">
-                  <div class="ud-widget-head">
-                    <span class="ud-widget-icon">▤</span>
-                    <span class="ud-widget-title">Key Signals</span>
-                  </div>
-                  <table class="ud-table">
-                    <thead>
-                      <tr><th>Metric</th><th>You</th><th>Comp. A</th></tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Distribution</td><td>12</td><td class="up">15</td></tr>
-                      <tr><td>Price index</td><td>100</td><td class="down">88</td></tr>
-                      <tr><td>Sentiment Δ</td><td class="up">+6%</td><td class="down">–14%</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <!-- Market sentiment bars -->
-                <div class="ud-widget ud-anim" style="transition-delay:360ms">
-                  <div class="ud-widget-head">
-                    <span class="ud-widget-icon">▥</span>
-                    <span class="ud-widget-title">Market Sentiment</span>
-                  </div>
-                  <div class="ud-bar-row">
-                    <span class="ud-bar-name">Your brand</span>
-                    <span class="ud-bar-track"><span class="ud-bar-fill brand" data-w="72%"></span></span>
-                    <span class="ud-bar-val">72%</span>
-                  </div>
-                  <div class="ud-bar-row">
-                    <span class="ud-bar-name">Competitor A</span>
-                    <span class="ud-bar-track"><span class="ud-bar-fill compA" data-w="44%"></span></span>
-                    <span class="ud-bar-val">44%</span>
-                  </div>
-                  <div class="ud-bar-row">
-                    <span class="ud-bar-name">Competitor B</span>
-                    <span class="ud-bar-track"><span class="ud-bar-fill compB" data-w="31%"></span></span>
-                    <span class="ud-bar-val">31%</span>
-                  </div>
-                </div>
-
-                <!-- Share of voice donut -->
-                <div class="ud-widget ud-anim" style="transition-delay:480ms">
-                  <div class="ud-widget-head">
-                    <span class="ud-widget-icon">◔</span>
-                    <span class="ud-widget-title">Share of Voice</span>
-                  </div>
-                  <div class="ud-donut-wrap">
-                    <div class="ud-donut" id="udDonut"></div>
-                    <div class="ud-legend">
-                      <div class="ud-legend-row"><span class="ud-legend-dot brand"></span>Your brand<span class="ud-legend-val">48%</span></div>
-                      <div class="ud-legend-row"><span class="ud-legend-dot compA"></span>Competitor A<span class="ud-legend-val">30%</span></div>
-                      <div class="ud-legend-row"><span class="ud-legend-dot compB"></span>Competitor B<span class="ud-legend-val">22%</span></div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Recent competitor moves -->
-                <div class="ud-widget ud-anim" style="transition-delay:540ms">
-                  <div class="ud-widget-head">
-                    <span class="ud-widget-icon">⤳</span>
-                    <span class="ud-widget-title">Recent Moves · 30d</span>
-                  </div>
-                  <div class="ud-moves">
-                    <div class="ud-move"><span class="ud-move-tag up">+3</span> New distribution cities, Thailand</div>
-                    <div class="ud-move"><span class="ud-move-tag">Q2</span> Aggressive pricing launch</div>
-                    <div class="ud-move"><span class="ud-move-tag down">–14%</span> Sentiment after complaints</div>
-                  </div>
-                </div>
-
-                <!-- Recommendation (full width, accent) -->
-                <div class="ud-widget reco full ud-anim" style="transition-delay:660ms">
-                  <div class="ud-widget-head">
-                    <span class="ud-widget-icon">★</span>
-                    <span class="ud-widget-title">Recommendation</span>
-                  </div>
-                  <div class="ud-widget-body">Accelerate content in Bangkok &amp; Chiang Mai. Counter pricing pressure with a value-add campaign within 2 weeks.</div>
-                </div>
-
-              </div><!-- end ud-dash -->
+            <!-- Loading dots (reuses slide-08 cf-loading/cf-dot/cfPulse styles) -->
+            <div class="cf-loading" id="udLoading">
+              <div class="cf-dot"></div>
+              <div class="cf-dot"></div>
+              <div class="cf-dot"></div>
+              <span>Analysing…</span>
             </div>
-
           </div><!-- end ud-card -->
 
         </div>
       </div>
     </section>
+
+    <!-- Report stage: outside section, absolutely positioned below card -->
+    <div class="ud-report-stage" id="udReportStage">
+      <div class="ud-report" id="udReport">
+        <div class="ud-shimmer"></div>
+
+        <div class="ud-report-head ud-anim" style="transition-delay:0ms">
+          <div class="ud-report-title">Brand Sentiment — SEA Region</div>
+          <span class="ud-live-badge">Live · Just now</span>
+        </div>
+
+        <div class="ud-dash">
+
+          <!-- Summary (full width) -->
+          <div class="ud-widget full ud-anim" style="transition-delay:120ms">
+            <div class="ud-widget-head">
+              <span class="ud-widget-icon">≡</span>
+              <span class="ud-widget-title">Summary</span>
+            </div>
+            <div class="ud-widget-body">Your brand sentiment rose +6% this quarter, driven by positive UGC in Thailand and Vietnam. Competitor A declined –14% after product quality complaints. Overall market positivity up 4 pts vs. last quarter.</div>
+          </div>
+
+          <!-- Key signals table -->
+          <div class="ud-widget ud-anim" style="transition-delay:240ms">
+            <div class="ud-widget-head">
+              <span class="ud-widget-icon">▤</span>
+              <span class="ud-widget-title">Key Signals</span>
+            </div>
+            <table class="ud-table">
+              <thead>
+                <tr><th>Metric</th><th>You</th><th>Comp. A</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sentiment score</td><td class="up">72%</td><td class="down">44%</td></tr>
+                <tr><td>Positive mentions</td><td class="up">+18%</td><td class="down">–9%</td></tr>
+                <tr><td>Brand recall</td><td>61%</td><td>48%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Market sentiment bars -->
+          <div class="ud-widget ud-anim" style="transition-delay:360ms">
+            <div class="ud-widget-head">
+              <span class="ud-widget-icon">▥</span>
+              <span class="ud-widget-title">Market Sentiment</span>
+            </div>
+            <div class="ud-bar-row">
+              <span class="ud-bar-name">Your brand</span>
+              <span class="ud-bar-track"><span class="ud-bar-fill brand" data-w="72%"></span></span>
+              <span class="ud-bar-val">72%</span>
+            </div>
+            <div class="ud-bar-row">
+              <span class="ud-bar-name">Competitor A</span>
+              <span class="ud-bar-track"><span class="ud-bar-fill compA" data-w="44%"></span></span>
+              <span class="ud-bar-val">44%</span>
+            </div>
+            <div class="ud-bar-row">
+              <span class="ud-bar-name">Competitor B</span>
+              <span class="ud-bar-track"><span class="ud-bar-fill compB" data-w="31%"></span></span>
+              <span class="ud-bar-val">31%</span>
+            </div>
+          </div>
+
+          <!-- Share of voice donut -->
+          <div class="ud-widget ud-anim" style="transition-delay:480ms">
+            <div class="ud-widget-head">
+              <span class="ud-widget-icon">◔</span>
+              <span class="ud-widget-title">Share of Voice</span>
+            </div>
+            <div class="ud-donut-wrap">
+              <div class="ud-donut" id="udDonut"></div>
+              <div class="ud-legend">
+                <div class="ud-legend-row"><span class="ud-legend-dot brand"></span>Your brand<span class="ud-legend-val">48%</span></div>
+                <div class="ud-legend-row"><span class="ud-legend-dot compA"></span>Competitor A<span class="ud-legend-val">30%</span></div>
+                <div class="ud-legend-row"><span class="ud-legend-dot compB"></span>Competitor B<span class="ud-legend-val">22%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent sentiment signals -->
+          <div class="ud-widget ud-anim" style="transition-delay:540ms">
+            <div class="ud-widget-head">
+              <span class="ud-widget-icon">⤳</span>
+              <span class="ud-widget-title">Recent Signals · 30d</span>
+            </div>
+            <div class="ud-moves">
+              <div class="ud-move"><span class="ud-move-tag up">+6%</span> Sentiment lift, Thailand UGC wave</div>
+              <div class="ud-move"><span class="ud-move-tag up">+18%</span> Positive mentions Q2 vs Q1</div>
+              <div class="ud-move"><span class="ud-move-tag down">–14%</span> Competitor A after complaints</div>
+            </div>
+          </div>
+
+          <!-- Recommendation (full width, accent) -->
+          <div class="ud-widget reco full ud-anim" style="transition-delay:660ms">
+            <div class="ud-widget-head">
+              <span class="ud-widget-icon">★</span>
+              <span class="ud-widget-title">Recommendation</span>
+            </div>
+            <div class="ud-widget-body">Amplify positive UGC in Bangkok &amp; Ho Chi Minh City. Launch a targeted sentiment campaign in Malaysia where scores lag 12 pts behind the SEA average.</div>
+          </div>
+
+        </div><!-- end ud-dash -->
+      </div>
+    </div><!-- end ud-report-stage -->
+
   </div>
 
   <!-- SLIDE 10: HOW WE WORK -->
@@ -2257,23 +2285,24 @@
     }
   })();
 
-  // ============ SLIDE 09: UNDERSTAND DEEPER — TYPEWRITER + REPORT ============
+  // ============ SLIDE 09: UNDERSTAND DEEPER — THREE-PHASE GENERATE ANIMATION ============
   (function understandDemo() {
-    const input  = document.getElementById('udInput');
-    const genBtn = document.getElementById('udGenBtn');
-    const report = document.getElementById('udReport');
-    const udSlide = document.querySelector('.understand');
-    if (!input || !report) return;
+    const input       = document.getElementById('udInput');
+    const genBtn      = document.getElementById('udGenBtn');
+    const report      = document.getElementById('udReport');
+    const loading     = document.getElementById('udLoading');
+    const reportStage = document.getElementById('udReportStage');
+    const heroLeft    = document.querySelector('.understand-left');
+    const udSlide     = document.querySelector('.understand');
+    if (!input || !genBtn || !report) return;
 
-    // PLACEHOLDER: update these strings with your real example prompts
     const udPrompts = [
-      'How is our top competitor positioned in SEA?',
       'What is the market sentiment for our brand this quarter?',
-      'Summarize customer pain points in the SaaS space in 2025.',
-      'What are the top competitor moves in the last 30 days?'
+      'What are the top competitor moves in the last 30 days?',
+      'How does our share of voice compare across SEA?',
     ];
 
-    let twIdx = 0, twChar = 0, twDeleting = false, twTimer = null, userTyping = false;
+    let twIdx = 0, twChar = 0, twDeleting = false, twTimer = null, userTyping = false, reportOpen = false;
 
     function typeStep() {
       if (userTyping) return;
@@ -2281,24 +2310,22 @@
       if (!twDeleting) {
         twChar++;
         input.placeholder = cur.slice(0, twChar);
-        if (twChar === cur.length) { twTimer = setTimeout(() => { twDeleting = true; typeStep(); }, 2000); return; }
+        if (twChar === cur.length) { twTimer = setTimeout(() => { twDeleting = true; typeStep(); }, 1800); return; }
       } else {
         twChar--;
         input.placeholder = cur.slice(0, twChar);
         if (twChar === 0) { twDeleting = false; twIdx = (twIdx + 1) % udPrompts.length; twTimer = setTimeout(typeStep, 400); return; }
       }
-      twTimer = setTimeout(typeStep, twDeleting ? 26 : 48);
+      twTimer = setTimeout(typeStep, twDeleting ? 28 : 52);
     }
 
-    // Start/stop typewriter with slide visibility
     if (udSlide) {
       new MutationObserver(() => {
         if (udSlide.dataset.state === 'active') {
-          if (!userTyping) twTimer = setTimeout(typeStep, 600);
-          // Animate bars on first reveal
-          setTimeout(fillBars, 400);
+          if (!userTyping && !reportOpen) { clearTimeout(twTimer); twTimer = setTimeout(typeStep, 600); }
         } else {
           clearTimeout(twTimer);
+          if (reportOpen) collapseReport(true);
         }
       }).observe(udSlide, { attributes: true, attributeFilter: ['data-state'] });
     }
@@ -2307,44 +2334,82 @@
       userTyping = true; clearTimeout(twTimer); input.placeholder = '';
     }
     input.addEventListener('focus', stopTypewriter);
+    input.addEventListener('blur', () => {
+      if (input.value.length === 0 && !reportOpen) {
+        userTyping = false; twChar = 0; twDeleting = false;
+        clearTimeout(twTimer); twTimer = setTimeout(typeStep, 600);
+      }
+    });
     input.addEventListener('input', () => {
       userTyping = input.value.length > 0;
-      if (userTyping) clearTimeout(twTimer);
+      if (userTyping) { clearTimeout(twTimer); input.placeholder = ''; }
+      else { twChar = 0; twDeleting = false; clearTimeout(twTimer); twTimer = setTimeout(typeStep, 600); }
     });
 
-    function fillBars() {
-      report.querySelectorAll('.ud-bar-fill').forEach(bar => {
-        bar.style.width = bar.dataset.w;
-      });
-    }
-    function resetBars() {
-      report.querySelectorAll('.ud-bar-fill').forEach(bar => { bar.style.width = '0'; });
-    }
+    const barFills = report.querySelectorAll('.ud-bar-fill');
+    function fillBars() { barFills.forEach(b => { b.style.width = b.dataset.w; }); }
+    function resetBars() { barFills.forEach(b => { b.style.width = '0'; }); }
 
-    // Generate / regenerate report with staggered reveal
-    function runReport() {
+    genBtn.addEventListener('click', () => {
+      if (reportOpen) { collapseReport(false); return; }
+      openReport();
+    });
+
+    function openReport() {
+      reportOpen = true;
+      clearTimeout(twTimer);
       genBtn.disabled = true;
-      report.classList.remove('done');
-      report.classList.add('generating');
-      resetBars();
 
+      // Phase 1: hero fades, loading dots pulse
+      heroLeft.classList.add('ud-hidden');
+      loading.classList.add('active');
+
+      // Phase 2 (800ms): dots stop, card slides to top-center
       setTimeout(() => {
-        report.classList.remove('generating');
-        report.classList.add('done');
-        genBtn.disabled = false;
-        // Bars animate after their section fades in (~300ms delay)
-        setTimeout(fillBars, 450);
-      }, 1800);
+        loading.classList.remove('active');
+        udSlide.classList.add('ud-gen-active');
+
+        // Phase 3 (800 + 500ms): report stage visible, shimmer then stagger in
+        setTimeout(() => {
+          genBtn.disabled = false;
+          genBtn.textContent = 'NEW QUERY ↺';
+          report.classList.remove('done');
+          report.classList.add('generating');
+          resetBars();
+          reportStage.classList.add('visible');
+
+          setTimeout(() => {
+            report.classList.remove('generating');
+            report.classList.add('done');
+            setTimeout(fillBars, 450);
+          }, 600);
+        }, 500);
+      }, 800);
     }
 
-    genBtn.addEventListener('click', runReport);
+    function collapseReport(silent) {
+      reportOpen = false;
+      reportStage.classList.remove('visible');
+      udSlide.classList.remove('ud-gen-active');
+      heroLeft.classList.remove('ud-hidden');
+      genBtn.textContent = 'GENERATE REPORT →';
+      report.classList.remove('done');
+      resetBars();
+      if (!silent) {
+        userTyping = false; twChar = 0; twDeleting = false; twIdx = 0;
+        input.value = '';
+        twTimer = setTimeout(typeStep, 700);
+      }
+    }
 
-    // Quick-select pills: populate input + auto-generate
-    document.querySelectorAll('.ud-pill').forEach(pill => {
+    // Pills — scoped to udSlide
+    udSlide.querySelectorAll('.ud-pill').forEach(pill => {
       pill.addEventListener('click', () => {
+        if (!pill.dataset.q) return;
         stopTypewriter();
         input.value = pill.dataset.q;
-        runReport();
+        if (reportOpen) { collapseReport(false); setTimeout(openReport, 400); }
+        else openReport();
       });
     });
   })();
