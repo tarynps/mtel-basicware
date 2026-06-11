@@ -566,14 +566,21 @@
   .ud-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: var(--meta); text-transform: uppercase; margin-bottom: 10px; }
 
   /* Query row (top) */
+  .ud-query {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: end;
+  }
+  .ud-card-label { grid-column: 1 / -1; }
   .ud-query .ud-input {
-    width: 100%; border: 1.5px solid var(--line); border-radius: 8px;
+    border: 1.5px solid var(--line); border-radius: 8px;
     padding: 11px 14px; font-family: var(--sans); font-size: 13px; color: var(--navy);
     outline: none; background: #fafaf9; transition: border-color 0.2s;
     line-height: 1.5; resize: none; min-height: 46px;
   }
   .ud-input:focus { border-color: var(--yellow); }
-  .ud-query-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 12px; }
+  .ud-query-actions { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 0; }
   .ud-pills { display: flex; flex-wrap: wrap; gap: 6px; }
   .ud-pill {
     font-size: 10px; font-weight: 600; letter-spacing: 0.4px; color: var(--navy);
