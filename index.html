@@ -356,22 +356,21 @@
 
   /* Demo Card */
   .cf-card {
-    background: rgba(255,255,255,0.07); border-radius: 16px;
+    background: #ffffff; border-radius: 16px;
     padding: 28px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.10);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.06);
     width: 720px;
   }
-  .cf-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-bottom: 14px; }
+  .cf-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: var(--meta); text-transform: uppercase; margin-bottom: 14px; }
 
   /* Input row */
   .cf-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
   .cf-input {
-    flex: 1; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 8px;
-    padding: 11px 14px; font-family: var(--sans); font-size: 13px; color: #ffffff;
-    outline: none; background: rgba(255,255,255,0.08); transition: border-color 0.2s;
+    flex: 1; border: 1.5px solid var(--line); border-radius: 8px;
+    padding: 11px 14px; font-family: var(--sans); font-size: 13px; color: var(--navy);
+    outline: none; background: #fafaf9; transition: border-color 0.2s;
     min-width: 0;
   }
-  .cf-input::placeholder { color: rgba(255,255,255,0.35); }
   .cf-input:focus { border-color: var(--yellow); }
   .cf-generate-btn {
     flex-shrink: 0; background: var(--navy); color: var(--yellow);
