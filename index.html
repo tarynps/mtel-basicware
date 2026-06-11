@@ -306,7 +306,8 @@
   .excl-body p { font-size: 16px; line-height: 1.65; color: var(--body); margin-bottom: 10px; }
   .excl-body p:last-child { margin-bottom: 0; }
   .excl-body strong { color: var(--navy); }
-  .excl-badge { display: inline-block; border: 1.5px solid rgba(59, 130, 246, 0.55); border-radius: 999px; padding: 11px 28px; font-size: 13px; font-weight: 600; color: rgb(59, 130, 246); letter-spacing: 0.3px; margin-top: 22px; }
+  .excl-badge { display: inline-block; border: 2px solid rgba(59, 130, 246, 0.8); border-radius: 999px; padding: 13px 32px; font-size: 13px; font-weight: 600; color: rgb(59, 130, 246); letter-spacing: 0.3px; margin-top: 22px; background: linear-gradient(90deg, rgba(59, 130, 246, 0.12) 0%, rgba(255, 255, 255, 0.25) 25%, rgba(59, 130, 246, 0.15) 50%, rgba(255, 255, 255, 0.25) 75%, rgba(59, 130, 246, 0.12) 100%); background-size: 200% 100%; box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), 0 0 12px rgba(59, 130, 246, 0.2); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; animation: badgeShimmer 2.2s ease-in-out infinite; }
+  .excl-badge:hover { animation: none; transform: translateY(-3px); border-color: rgb(59, 130, 246); box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 18px rgba(59, 130, 246, 0.35); }
 
   /* ============ SLIDE: THE STACK ============ */
   .stack { background: var(--off-white); }
@@ -323,7 +324,7 @@
   .stack-col li::before { content: '→ '; color: var(--yellow); font-weight: bold; }
 
   /* ============ SLIDE: TWO PILLARS ============ */
-  .pillars-section { background: var(--navy); }
+  .pillars-section { background: #0E0E3E; }
   .pillars-section .eyebrow { color: var(--yellow); }
   .pillars-section .eyebrow::before { background: var(--yellow); }
   .pillars-section .eyebrow { margin-bottom: 16px; }
@@ -337,16 +338,17 @@
   .two-pillar p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.60); }
 
   /* ============ SLIDE: CREATE FASTER DEMO ============ */
-  .create-faster { background: var(--navy); position: relative; overflow: hidden; }
+  .create-faster { background: #0E0E3E; position: relative; overflow: hidden; }
   .create-faster::before {
     content: ''; position: absolute; top: -120px; right: -80px;
     width: 480px; height: 480px;
     background: radial-gradient(circle, rgba(245,197,24,0.10), transparent 65%);
     pointer-events: none;
   }
-  .create-faster-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: center; }
+  .create-faster-layout { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; justify-items: center; max-width: 900px; margin: 0 auto; }
   .create-faster-left .eyebrow { color: var(--yellow); }
   .create-faster-left .eyebrow::before { background: var(--yellow); }
+  .create-faster-left { text-align: center; }
   .create-faster-left h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
   .create-faster-left h2 .accent { color: var(--yellow); }
   .create-faster-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 420px; }
@@ -356,6 +358,7 @@
     background: #ffffff; border-radius: 16px;
     padding: 28px;
     box-shadow: 0 24px 64px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.06);
+    width: 720px;
   }
   .cf-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: var(--meta); text-transform: uppercase; margin-bottom: 14px; }
 
@@ -449,7 +452,7 @@
   @media (max-width: 1024px) { .create-faster-layout { grid-template-columns: 1fr; gap: 36px; } }
 
   /* ============ SLIDE: UNDERSTAND DEEPER DEMO ============ */
-  .understand { background: var(--navy); position: relative; overflow: hidden; }
+  .understand { background: #0E0E3E; position: relative; overflow: hidden; }
   .understand::before {
     content: ''; position: absolute; bottom: -140px; left: -90px;
     width: 480px; height: 480px;
@@ -512,6 +515,7 @@
   }
   .ud-live-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--yellow); animation: udBlink 1.4s ease-in-out infinite; }
   @keyframes udBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  @keyframes badgeShimmer { 0%, 100% { background-position: 0% 0; box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 12px rgba(59, 130, 246, 0.2); } 50% { background-position: 100% 0; box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 16px rgba(59, 130, 246, 0.3); } }
 
   /* Dashboard widget grid */
   .ud-dash { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -628,7 +632,7 @@
   .outcome-card + .outcome-card { margin-top: -12px; }
   .outcome-card:hover { z-index: 5; transform: translateY(-4px); filter: drop-shadow(0 0 0 1.5px var(--yellow)) drop-shadow(0 8px 20px rgba(245,197,24,0.2)); }
   .outcome-card-prefix { font-size: 11px; font-weight: 300; color: #888; margin-bottom: 4px; }
-  .outcome-card-num { font-size: clamp(24px, 2.4vw, 36px); font-weight: 300; letter-spacing: -1.5px; color: #1a1f3c; line-height: 1; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .outcome-card-num { font-family: var(--serif); font-weight: bold; font-size: clamp(32px, 3.5vw, 52px); color: var(--navy); line-height: 1; letter-spacing: -2px; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .outcome-card-title { font-size: 13px; font-weight: 700; color: #1a1f3c; margin-bottom: 6px; }
   .outcome-card-desc { font-size: 12px; font-weight: 400; line-height: 1.45; color: #555; }
 
@@ -1178,7 +1182,7 @@
             <div class="outcomes-col">
               <div class="outcome-card reveal">
                 <div class="outcome-card-prefix">Up to</div>
-                <div class="outcome-card-num" data-target="80" data-format="percent-range" data-prefix="30–">30–80%</div>
+                <div class="outcome-card-num" data-target="80" data-format="percent">80%</div>
                 <div class="outcome-card-title">Reduction in workload</div>
                 <div class="outcome-card-desc">Hours freed from repetitive, low-value tasks, redirected to strategy.</div>
               </div>
@@ -1192,7 +1196,7 @@
             <div class="outcomes-col">
               <div class="outcome-card reveal">
                 <div class="outcome-card-prefix">Up to</div>
-                <div class="outcome-card-num" data-target="68" data-format="percent-range" data-prefix="20–">20–68%</div>
+                <div class="outcome-card-num" data-target="68" data-format="percent">68%</div>
                 <div class="outcome-card-title">Lower operational cost</div>
                 <div class="outcome-card-desc">Fewer handoffs, less rework, right-sized AI infrastructure.</div>
               </div>
@@ -1205,7 +1209,7 @@
             </div>
             <div class="outcomes-col">
               <div class="outcome-card reveal">
-                <div class="outcome-card-prefix">Around</div>
+                <div class="outcome-card-prefix">Increase</div>
                 <div class="outcome-card-num" data-target="5" data-format="multiplier-range" data-prefix="3–">3–5×</div>
                 <div class="outcome-card-title">Faster operations</div>
                 <div class="outcome-card-desc">Approvals, reporting, and response cycles that used to take days.</div>
