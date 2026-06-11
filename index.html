@@ -312,7 +312,7 @@
   /* ============ SLIDE: THE STACK ============ */
   .stack { background: var(--off-white); }
   .stack .section-intro { margin-bottom: 32px; }
-  .stack-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 4px; background: var(--white); overflow: hidden; }
+  .stack-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); background: transparent; overflow: hidden; }
   .stack-col { padding: 28px 28px 24px; border-right: 1px solid var(--line); position: relative; }
   .stack-col:last-child { border-right: none; }
   .stack-col-num { font-family: var(--serif); font-weight: bold; font-size: 44px; color: var(--yellow); line-height: 1; letter-spacing: -2px; margin-bottom: 12px; }
@@ -339,6 +339,7 @@
 
   /* ============ SLIDE: CREATE FASTER DEMO ============ */
   .create-faster { background: #0E0E3E; position: relative; overflow: hidden; }
+  .create-faster.cf-gen-active { overflow: visible; }
   .create-faster::before {
     content: ''; position: absolute; top: -120px; right: -80px;
     width: 480px; height: 480px;
@@ -355,21 +356,22 @@
 
   /* Demo Card */
   .cf-card {
-    background: #ffffff; border-radius: 16px;
+    background: rgba(255,255,255,0.07); border-radius: 16px;
     padding: 28px;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.06);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.10);
     width: 720px;
   }
-  .cf-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: var(--meta); text-transform: uppercase; margin-bottom: 14px; }
+  .cf-card-label { font-size: 10px; font-weight: 600; letter-spacing: 1.4px; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-bottom: 14px; }
 
   /* Input row */
   .cf-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
   .cf-input {
-    flex: 1; border: 1.5px solid var(--line); border-radius: 8px;
-    padding: 11px 14px; font-family: var(--sans); font-size: 13px; color: var(--navy);
-    outline: none; background: #fafaf9; transition: border-color 0.2s;
+    flex: 1; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 8px;
+    padding: 11px 14px; font-family: var(--sans); font-size: 13px; color: #ffffff;
+    outline: none; background: rgba(255,255,255,0.08); transition: border-color 0.2s;
     min-width: 0;
   }
+  .cf-input::placeholder { color: rgba(255,255,255,0.35); }
   .cf-input:focus { border-color: var(--yellow); }
   .cf-generate-btn {
     flex-shrink: 0; background: var(--navy); color: var(--yellow);
@@ -448,6 +450,71 @@
     cursor: pointer; transition: background 0.2s;
   }
   .cf-lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+  /* ---- Fan: hero collapse ---- */
+  .create-faster-left {
+    transition: opacity 0.4s ease, max-height 0.5s 0.1s ease, margin-bottom 0.5s 0.1s ease;
+    max-height: 320px; overflow: hidden;
+  }
+  .create-faster-left.cf-hidden { opacity: 0; max-height: 0; margin-bottom: -40px; pointer-events: none; }
+
+  /* ---- Card slides to top when GENERATE active ---- */
+  .create-faster.cf-gen-active .cf-card {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 740px;
+    z-index: 10;
+    transition: top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ---- Row stage — absolute, centered, below card ---- */
+  .cf-row-stage {
+    display: none;
+    position: absolute;
+    top: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .cf-row-stage.visible { display: block; }
+
+  /* ---- Video grid: 2 rows × 4 cards (landscape) ---- */
+  .cf-video-row {
+    display: grid;
+    grid-template-columns: repeat(4, 280px);
+    grid-template-rows: repeat(2, 158px);
+    gap: 14px;
+  }
+
+  /* ---- Individual video card — landscape 16:9 ---- */
+  .cf-video-card {
+    width: 280px;
+    height: 158px;  /* 280 × 9/16 = 157.5px ≈ 158px */
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    background: #0d0f2b;
+    opacity: 0;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .cf-video-card video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .cf-video-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 0 0 2px rgba(245,197,24,0.55), 0 16px 48px rgba(0,0,0,0.5); z-index: 2; }
+
+  /* ---- Card reveal animation (left-to-right stagger) ---- */
+  @keyframes cfCardIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .cf-video-card.revealed { animation: cfCardIn 400ms ease-out forwards; }
+
+  /* ---- Lightbox: real video ---- */
+  .cf-lightbox { background: rgba(0,0,0,0.97); backdrop-filter: none; }
+  .cf-lightbox-inner { width: auto; display: flex; align-items: center; justify-content: center; }
+  #cfLightboxVideo { max-width: 88vw; max-height: 84vh; border-radius: 12px; display: block; background: #000; }
 
   @media (max-width: 1024px) { .create-faster-layout { grid-template-columns: 1fr; gap: 36px; } }
 
@@ -1117,7 +1184,7 @@
         <div class="section-intro reveal">
           <div>
             <div class="eyebrow">what we deliver</div>
-            <h2>The same stack used by BytePlus, <span class="accent">operated by mtel.</span></h2>
+            <h2>The same stack used by BytePlus, <span class="accent">operated by Mtel.</span></h2>
           </div>
           <p class="lede">An integrated operating layer: the platform, the workflows, and the intelligence, built on the same engine that powers ByteDance's consumer products.</p>
         </div>
@@ -1283,51 +1350,24 @@
               <span>Generating…</span>
             </div>
 
-            <!-- Result area (hidden until generated) -->
-            <div class="cf-result-area" id="cfResultArea">
-              <!-- Tabs -->
-              <div class="cf-tabs">
-                <button class="cf-tab active" data-tab="video">▶ Video</button>
-                <button class="cf-tab" data-tab="image">⬜ Image</button>
-              </div>
-
-              <!-- Video panel -->
-              <div class="cf-result-panel active" id="cfPanelVideo">
-                <!-- PLACEHOLDER: replace this div with <video> or <iframe> for the generated video -->
-                <div class="cf-placeholder" id="cfVideoPlaceholder">
-                  <div class="cf-play-btn">▶</div>
-                  <div class="cf-placeholder-label" style="opacity:0">video</div>
-                </div>
-                <div class="cf-prompt-used" id="cfVideoPrompt"></div>
-              </div>
-
-              <!-- Image panel -->
-              <div class="cf-result-panel" id="cfPanelImage">
-                <!-- PLACEHOLDER: replace this div with <img src="your-image.jpg"> -->
-                <div class="cf-placeholder" id="cfImagePlaceholder">
-                  <div class="cf-placeholder-label">[ Replace with generated image ]</div>
-                </div>
-                <div class="cf-prompt-used" id="cfImagePrompt"></div>
-              </div>
-
-              <div class="cf-expand-hint">↗ Click result to expand</div>
-            </div>
           </div><!-- end cf-card -->
 
         </div>
       </div>
     </section>
+
+    <!-- Video row: outside section, absolutely positioned across full slide width -->
+    <div class="cf-row-stage" id="cfRowStage">
+      <div class="cf-video-row" id="cfVideoRow"></div>
+    </div>
+
   </div>
 
   <!-- Lightbox overlay (shared, outside slides) -->
   <div class="cf-lightbox" id="cfLightbox">
     <div class="cf-lightbox-inner">
       <button class="cf-lightbox-close" id="cfLightboxClose">✕</button>
-      <div class="cf-lightbox-content" id="cfLightboxContent">
-        <!-- PLACEHOLDER: replace this div with <video> or <img> when real media is available -->
-        <span class="cf-lightbox-label" id="cfLightboxLabel">[ Media Preview ]</span>
-      </div>
-      <div class="cf-lightbox-prompt" id="cfLightboxPrompt"></div>
+      <video id="cfLightboxVideo" controls playsinline></video>
     </div>
   </div>
 
@@ -2059,119 +2099,162 @@
   };
 
 
-  // ============ SLIDE 08: CREATE FASTER — TYPEWRITER + DEMO ============
+  // ============ SLIDE 08: CREATE FASTER — TYPEWRITER + HORIZONTAL VIDEO ROW ============
   (function createFasterDemo() {
-    const input      = document.getElementById('cfInput');
-    const genBtn     = document.getElementById('cfGenBtn');
-    const loading    = document.getElementById('cfLoading');
-    const resultArea = document.getElementById('cfResultArea');
-    const videoPanel = document.getElementById('cfPanelVideo');
-    const imagePanel = document.getElementById('cfPanelImage');
-    const videoPrompt = document.getElementById('cfVideoPrompt');
-    const imagePrompt = document.getElementById('cfImagePrompt');
-    const lightbox   = document.getElementById('cfLightbox');
-    const lbClose    = document.getElementById('cfLightboxClose');
-    const lbPrompt   = document.getElementById('cfLightboxPrompt');
+    const input     = document.getElementById('cfInput');
+    const genBtn    = document.getElementById('cfGenBtn');
+    const loading   = document.getElementById('cfLoading');
+    const rowStage  = document.getElementById('cfRowStage');
+    const videoRow  = document.getElementById('cfVideoRow');
+    const heroLeft  = document.querySelector('.create-faster-left');
+    const cfSlide   = document.querySelector('.create-faster');
+    const lightbox  = document.getElementById('cfLightbox');
+    const lbClose   = document.getElementById('cfLightboxClose');
+    const lbVideo   = document.getElementById('cfLightboxVideo');
     if (!input) return;
 
-    // PLACEHOLDER: update these strings with your real example prompts
-    const PROMPTS = [
-      '30-sec product video for a skincare brand, golden hour...',
-      'Campaign images for a new coffee launch, minimal aesthetic...',
-      'Landing page for a SaaS tool, dark theme, bold typography...'
+    // ---- Video files ----
+    const VIDEOS = [
+      'assets-video/1. Social Media Selfie Video.mp4',
+      'assets-video/2. Momax Ad.mp4',
+      'assets-video/3. Thailand_V1_Sample.mp4',
+      'assets-video/3.1 HK Promo.mp4',
+      'assets-video/3.2 Thailand_V2_noaudio.mp4',
+      'assets-video/4. Candle Series IP.mp4',
+      'assets-video/4.1 Vietnam Game Verse.mp4',
+      'assets-video/4.2 Brazil Football.mp4',
     ];
 
-    let twIdx = 0, twCharIdx = 0, twDeleting = false, twPaused = false;
-    let twTimer = null;
-    let userTyping = false;
-    let lastPromptUsed = '';
+    // ---- Typewriter prompts ----
+    const PROMPTS = [
+      'สร้างวิดีโอโปรโมตสินค้า 30 วินาที สำหรับแบรนด์สกินแคร์...',
+      'Campaign video for a new coffee launch, golden hour aesthetic...',
+      'Product showcase for a tech gadget, dark cinematic style...',
+    ];
+    let twIdx = 0, twCharIdx = 0, twDeleting = false, twTimer = null, userTyping = false;
 
     function typeStep() {
       if (userTyping) return;
-      const current = PROMPTS[twIdx];
+      const cur = PROMPTS[twIdx];
       if (!twDeleting) {
         twCharIdx++;
-        input.placeholder = current.slice(0, twCharIdx);
-        if (twCharIdx === current.length) {
-          twPaused = true;
-          twTimer = setTimeout(() => { twPaused = false; twDeleting = true; typeStep(); }, 1800);
-          return;
-        }
+        input.placeholder = cur.slice(0, twCharIdx);
+        if (twCharIdx === cur.length) { twTimer = setTimeout(() => { twDeleting = true; typeStep(); }, 1800); return; }
       } else {
         twCharIdx--;
-        input.placeholder = current.slice(0, twCharIdx);
-        if (twCharIdx === 0) {
-          twDeleting = false;
-          twIdx = (twIdx + 1) % PROMPTS.length;
-          twTimer = setTimeout(typeStep, 400);
-          return;
-        }
+        input.placeholder = cur.slice(0, twCharIdx);
+        if (twCharIdx === 0) { twDeleting = false; twIdx = (twIdx + 1) % PROMPTS.length; twTimer = setTimeout(typeStep, 400); return; }
       }
       twTimer = setTimeout(typeStep, twDeleting ? 28 : 52);
     }
 
-    // Start typewriter when slide becomes active
-    const cfSlide = document.querySelector('.create-faster');
+    // ---- Slide state observer: start typewriter + auto-reset on nav away ----
     if (cfSlide) {
       new MutationObserver(() => {
         if (cfSlide.dataset.state === 'active') {
-          if (!userTyping) twTimer = setTimeout(typeStep, 600);
+          if (!userTyping && !rowOpen) twTimer = setTimeout(typeStep, 600);
         } else {
           clearTimeout(twTimer);
+          if (rowOpen) collapseRow(true);
         }
       }).observe(cfSlide, { attributes: true, attributeFilter: ['data-state'] });
     }
 
-    // Stop typewriter when user types
     input.addEventListener('input', () => {
       userTyping = input.value.length > 0;
       if (userTyping) { clearTimeout(twTimer); input.placeholder = ''; }
-      else { input.placeholder = ''; userTyping = false; twCharIdx = 0; twDeleting = false; twTimer = setTimeout(typeStep, 600); }
+      else { userTyping = false; twCharIdx = 0; twDeleting = false; input.placeholder = ''; twTimer = setTimeout(typeStep, 600); }
     });
 
-    // Generate button
+    // ---- Row state ----
+    let rowOpen = false;
+
     genBtn.addEventListener('click', () => {
-      const prompt = input.value.trim() || input.placeholder;
-      if (!prompt) return;
-      lastPromptUsed = prompt;
+      if (rowOpen) { collapseRow(false); return; }
+      openRow();
+    });
+
+    function openRow() {
+      rowOpen = true;
+      clearTimeout(twTimer);
       genBtn.disabled = true;
-      resultArea.classList.remove('visible');
+
+      // Phase 1 (0ms): hero fades, loading dots run — card stays centered
+      heroLeft.classList.add('cf-hidden');
       loading.classList.add('active');
 
+      // Phase 2 (800ms): loading stops, card slides up to top
       setTimeout(() => {
         loading.classList.remove('active');
-        genBtn.disabled = false;
-        videoPrompt.textContent = '"' + prompt + '"';
-        imagePrompt.textContent = '"' + prompt + '"';
-        resultArea.classList.add('visible');
-        // Default to video tab
-        setTab('video');
-      }, 1600);
-    });
+        cfSlide.classList.add('cf-gen-active');
 
-    // Tabs
-    document.querySelectorAll('.cf-tab').forEach(tab => {
-      tab.addEventListener('click', () => setTab(tab.dataset.tab));
-    });
-    function setTab(name) {
-      document.querySelectorAll('.cf-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
-      videoPanel.classList.toggle('active', name === 'video');
-      imagePanel.classList.toggle('active', name === 'image');
+        // Phase 3 (800 + 500ms): after card settles, stagger in video cards
+        setTimeout(() => {
+          genBtn.disabled = false;
+          genBtn.textContent = 'RESET ↺';
+          buildVideoCards();
+          rowStage.classList.add('visible');
+          staggerReveal();
+        }, 500);
+
+      }, 800);
     }
 
-    // Lightbox
-    function openLightbox(type) {
-      lbPrompt.textContent = '"' + lastPromptUsed + '"';
-      document.getElementById('cfLightboxLabel').textContent = type === 'video'
-        ? '[ Replace with generated video ]'
-        : '[ Replace with generated image ]';
+    function collapseRow(silent) {
+      rowOpen = false;
+      rowStage.classList.remove('visible');
+      cfSlide.classList.remove('cf-gen-active');
+      heroLeft.classList.remove('cf-hidden');
+      genBtn.textContent = 'GENERATE →';
+      setTimeout(() => { videoRow.innerHTML = ''; }, 300);
+      if (!silent) {
+        userTyping = false; twCharIdx = 0; twDeleting = false; twIdx = 0;
+        input.value = '';
+        twTimer = setTimeout(typeStep, 700);
+      }
+    }
+
+    // ---- Build video cards ----
+    function buildVideoCards() {
+      videoRow.innerHTML = '';
+      VIDEOS.forEach((src) => {
+        const card = document.createElement('div');
+        card.className = 'cf-video-card';
+        const vid = document.createElement('video');
+        vid.preload = 'auto'; vid.muted = true; vid.playsInline = true; vid.src = src;
+        vid.addEventListener('loadedmetadata', () => { try { vid.currentTime = 1; } catch(e){} });
+        card.appendChild(vid);
+        card.addEventListener('click', () => openLightbox(src));
+        videoRow.appendChild(card);
+      });
+    }
+
+    // ---- Stagger reveal: left-to-right, card 1 at +600ms, each next +220ms ----
+    function staggerReveal() {
+      const cards = videoRow.querySelectorAll('.cf-video-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('revealed'), 600 + i * 220);
+      });
+    }
+
+    // ---- Lightbox with real video ----
+    function openLightbox(src) {
+      lbVideo.src = src;
+      lbVideo.load();
+      lbVideo.play().catch(() => {});
       lightbox.classList.add('open');
     }
-    document.getElementById('cfVideoPlaceholder').addEventListener('click', () => openLightbox('video'));
-    document.getElementById('cfImagePlaceholder').addEventListener('click', () => openLightbox('image'));
-    lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox(); });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lbVideo.pause();
+      lbVideo.currentTime = 0;
+      setTimeout(() => { lbVideo.src = ''; }, 300);
+    }
   })();
 
   // ============ SLIDE 09: UNDERSTAND DEEPER — TYPEWRITER + REPORT ============
