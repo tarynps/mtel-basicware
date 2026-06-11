@@ -526,12 +526,14 @@
     background: radial-gradient(circle, rgba(168,148,220,0.16), transparent 65%);
     pointer-events: none;
   }
-  .understand-layout { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 48px; align-items: center; }
-  .understand-left .eyebrow { color: var(--yellow); }
+  .understand-layout { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; justify-items: center; max-width: 860px; margin: 0 auto; }
+  .understand-left { text-align: center; width: 100%; }
+  .understand-left .eyebrow { color: var(--yellow); justify-content: center; }
   .understand-left .eyebrow::before { background: var(--yellow); }
-  .understand-left h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 20px; }
+  .understand-left h2 { color: var(--white); font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 16px; }
   .understand-left h2 .accent { color: var(--yellow); }
-  .understand-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 420px; }
+  .understand-left p { font-size: 15px; line-height: 1.68; color: rgba(255,255,255,0.60); max-width: 580px; margin: 0 auto; }
+  .ud-card { width: 100%; max-width: 720px; }
 
   /* Left copy — collapse on generate (mirrors .create-faster-left) */
   .understand-left {
@@ -680,7 +682,6 @@
   @keyframes udShimmer { 0% { background-position: 180% 0; } 100% { background-position: -80% 0; } }
 
   @media (max-width: 1024px) {
-    .understand-layout { grid-template-columns: 1fr; gap: 36px; }
     .ud-query-actions { flex-direction: column; align-items: stretch; }
     .ud-generate-btn { width: 100%; }
   }
