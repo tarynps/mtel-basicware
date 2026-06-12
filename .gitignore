@@ -12,3 +12,6 @@
 
 # Logs
 *.log
+
+# Video assets (too large for git — hosted on Vercel Blob)
+assets-video/
