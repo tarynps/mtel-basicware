@@ -489,6 +489,7 @@
 
   /* ---- Individual video card — square 1:1 ---- */
   .cf-video-card {
+    position: relative;
     width: calc((100vh - 355px) / 2);
     height: calc((100vh - 355px) / 2);
     border-radius: 16px;
@@ -500,8 +501,10 @@
     opacity: 0;
     transition: box-shadow 0.25s ease, transform 0.25s ease;
   }
-  .cf-video-card video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .cf-video-card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
   .cf-video-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 0 0 2px rgba(245,197,24,0.55), 0 16px 48px rgba(0,0,0,0.5); z-index: 2; }
+  .cf-play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; pointer-events: none; }
+  .cf-video-card:hover .cf-play-overlay { opacity: 1; }
 
   /* ---- Card reveal animation (left-to-right stagger) ---- */
   @keyframes cfCardIn {
@@ -513,7 +516,7 @@
   /* ---- Lightbox: real video ---- */
   .cf-lightbox { background: rgba(0,0,0,0.97); backdrop-filter: none; }
   .cf-lightbox-inner { width: auto; display: flex; align-items: center; justify-content: center; }
-  #cfLightboxVideo { max-width: 88vw; max-height: 84vh; border-radius: 12px; display: block; background: #000; }
+  #cfLightboxVideo { width: 88vw; height: 84vh; max-width: 1200px; border-radius: 12px; display: block; background: #000; border: none; }
 
   @media (max-width: 1024px) { .create-faster-layout { grid-template-columns: 1fr; gap: 36px; } }
 
@@ -1396,7 +1399,7 @@
   <div class="cf-lightbox" id="cfLightbox">
     <div class="cf-lightbox-inner">
       <button class="cf-lightbox-close" id="cfLightboxClose">✕</button>
-      <video id="cfLightboxVideo" controls playsinline></video>
+      <iframe id="cfLightboxVideo" allowfullscreen allow="autoplay; encrypted-media" frameborder="0"></iframe>
     </div>
   </div>
 
@@ -2219,15 +2222,16 @@
     const lbVideo   = document.getElementById('cfLightboxVideo');
     if (!input) return;
 
-    // ---- Video files (Vercel Blob) ----
+    // ---- Google Drive file IDs (left to right order) ----
     const VIDEOS = [
-      'https://w8lpclndfqhoektb.public.blob.vercel-storage.com/assets-video/1.%20Social%20Media%20Selfie%20Video.mp4',
-      'https://w8lpclndfqhoektb.public.blob.vercel-storage.com/assets-video/2.%20Momax%20Ad.mp4',
-      'https://w8lpclndfqhoektb.public.blob.vercel-storage.com/assets-video/3.%20Thailand_V1_Sample.mp4',
-      'https://w8lpclndfqhoektb.public.blob.vercel-storage.com/assets-video/3.1%20HK%20Promo.mp4',
-      'https://w8lpclndfqhoektb.public.blob.vercel-storage.com/assets-video/3.2%20Thailand_V2_noaudio.mp4',
-      'https://w8lpclndfqhoektb.public.blob.vercel-storage.com/assets-video/4.%20Candle%20Series%20IP.mp4',
-      'https://w8lpclndfqhoektb.public.blob.vercel-storage.com/assets-video/4.2%20Brazil%20Football.mp4',
+      '18-5B6zanYD7Ctv-62TUGwYVzKmzKOv1F',
+      '1RoMRlt0kxwJOAWu-Fi-mvivMqqjQvk0i',
+      '1owIFxAmqB-4m002LDnp62gEtZr8uJW4l',
+      '1fFvDFHMCBPpbi9WuTT6NYuwA9x1FNePt',
+      '13VsnpLzYv_GIyZA4K_OQxpM4vgBSOTpH',
+      '1RhmPv4Q0xiyc3LqLS-T_lEd2GGjOrb_j',
+      '1xVLDb04N-Tf4Q6QtySu6dTe9x3rImjvQ',
+      '1nh47HXaw_KCo_g0yJ8xLHNAUzQe52-pm',
     ];
 
     // ---- Typewriter prompts ----
@@ -2319,17 +2323,27 @@
       }
     }
 
-    // ---- Build video cards ----
+    // ---- Build video cards (Google Drive thumbnail + play icon) ----
     function buildVideoCards() {
       videoRow.innerHTML = '';
-      VIDEOS.forEach((src) => {
+      VIDEOS.forEach((id) => {
         const card = document.createElement('div');
         card.className = 'cf-video-card';
-        const vid = document.createElement('video');
-        vid.preload = 'auto'; vid.muted = true; vid.playsInline = true; vid.src = src;
-        vid.addEventListener('loadedmetadata', () => { try { vid.currentTime = 1; } catch(e){} });
-        card.appendChild(vid);
-        card.addEventListener('click', () => openLightbox(src));
+
+        // Thumbnail image from Google Drive
+        const thumb = document.createElement('img');
+        thumb.src = `https://drive.google.com/thumbnail?id=${id}&sz=w480`;
+        thumb.alt = '';
+        thumb.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+
+        // Play icon overlay
+        const play = document.createElement('div');
+        play.className = 'cf-play-overlay';
+        play.innerHTML = '<svg viewBox="0 0 24 24" fill="white" width="40" height="40"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.45)"/><polygon points="9.5,7 18,12 9.5,17" fill="white"/></svg>';
+
+        card.appendChild(thumb);
+        card.appendChild(play);
+        card.addEventListener('click', () => openLightbox(id));
         videoRow.appendChild(card);
       });
     }
@@ -2342,11 +2356,9 @@
       });
     }
 
-    // ---- Lightbox with real video ----
-    function openLightbox(src) {
-      lbVideo.src = src;
-      lbVideo.load();
-      lbVideo.play().catch(() => {});
+    // ---- Lightbox: Google Drive iframe player ----
+    function openLightbox(id) {
+      lbVideo.src = `https://drive.google.com/file/d/${id}/preview`;
       lightbox.classList.add('open');
     }
 
@@ -2356,9 +2368,7 @@
 
     function closeLightbox() {
       lightbox.classList.remove('open');
-      lbVideo.pause();
-      lbVideo.currentTime = 0;
-      setTimeout(() => { lbVideo.src = ''; }, 300);
+      setTimeout(() => { lbVideo.src = ''; }, 300); // clear iframe to stop playback
     }
   })();
 
