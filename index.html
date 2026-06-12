@@ -479,18 +479,18 @@
   }
   .cf-row-stage.visible { display: block; }
 
-  /* ---- Video grid: 2 rows × 4 cards (square 1:1) ---- */
+  /* ---- Video grid: 2 rows × 4 cards (square 1:1, fits viewport) ---- */
   .cf-video-row {
     display: grid;
-    grid-template-columns: repeat(4, 280px);
-    grid-template-rows: repeat(2, 280px);
+    grid-template-columns: repeat(4, calc((100vh - 355px) / 2));
+    grid-template-rows: repeat(2, calc((100vh - 355px) / 2));
     gap: 14px;
   }
 
   /* ---- Individual video card — square 1:1 ---- */
   .cf-video-card {
-    width: 280px;
-    height: 280px;
+    width: calc((100vh - 355px) / 2);
+    height: calc((100vh - 355px) / 2);
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
