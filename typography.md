@@ -21,8 +21,10 @@ This makes the system simpler and more consistent. The main structure now comes 
 | Token | Value | Typical use |
 | --- | --- | --- |
 | `--text-h1` | `clamp(2rem, 5vw, 3.5rem)` | Primary page / hero heading |
-| `--text-h2` | `clamp(2rem, 4vw, 3rem)` | Section heading |
+| `--text-h2` | `clamp(2rem, 4vw, 2.75rem)` | Section heading |
 | `--text-h3` | `clamp(1.5rem, 2.5vw, 2rem)` | Subsection heading |
+| `--text-h4` | `clamp(1.125rem, 1rem + 0.5vw, 1.25rem)` | Card / detail heading |
+| `--text-h5` | `clamp(1rem, 0.95rem + 0.25vw, 1.125rem)` | Small heading |
 | `--text-stat` | `clamp(2.25rem, 4vw, 3.5rem)` | Large stat numbers |
 | `--text-body-lg` | `clamp(1rem, 0.96rem + 0.24vw, 1.125rem)` | Intro / lead paragraph |
 | `--text-body` | `clamp(0.9375rem, 0.915rem + 0.11vw, 1rem)` | Default body text |
@@ -39,8 +41,10 @@ This makes the system simpler and more consistent. The main structure now comes 
 | Token | Clamp value | 1920px screen | 1440px screen | 375px screen |
 | --- | --- | --- | --- | --- |
 | `--text-h1` | `clamp(2rem, 5vw, 3.5rem)` | `56px` | `56px` | `32px` |
-| `--text-h2` | `clamp(2rem, 4vw, 3rem)` | `48px` | `48px` | `32px` |
+| `--text-h2` | `clamp(2rem, 4vw, 2.75rem)` | `44px` | `44px` | `32px` |
 | `--text-h3` | `clamp(1.5rem, 2.5vw, 2rem)` | `32px` | `32px` | `24px` |
+| `--text-h4` | `clamp(1.125rem, 1rem + 0.5vw, 1.25rem)` | `20px` | `20px` | `18px` |
+| `--text-h5` | `clamp(1rem, 0.95rem + 0.25vw, 1.125rem)` | `18px` | `18px` | `16.14px` |
 | `--text-stat` | `clamp(2.25rem, 4vw, 3.5rem)` | `56px` | `56px` | `36px` |
 | `--text-body-lg` | `clamp(1rem, 0.96rem + 0.24vw, 1.125rem)` | `18px` | `18px` | `16.26px` |
 | `--text-body` | `clamp(0.9375rem, 0.915rem + 0.11vw, 1rem)` | `16px` | `16px` | `15.05px` |
@@ -91,12 +95,31 @@ This makes the system simpler and more consistent. The main structure now comes 
 
 - `h2`
 - `.bottom-cta-heading`
+- `.section-intro h2`
+- `.data h2`
+- `.exclusivity h2`
+- `.pillars-section h2`
+- `.create-faster-left h2`
+- `.understand-left h2`
+- `.outcomes h2`
 - Best for section titles
 
 ### `--text-h3`
 
 - `h3`
+- All slide-specific `h3` selectors
 - Best for subsection titles and card headlines
+
+### `--text-h4`
+
+- `h4`
+- `.pricing-factor h4`
+- Best for card and detail headings
+
+### `--text-h5`
+
+- `h5`
+- Best for small headings
 
 ### `--text-stat`
 
@@ -163,8 +186,10 @@ This makes the system simpler and more consistent. The main structure now comes 
 - The system is now simpler because all text uses one family.
 - Hierarchy depends on size, weight, spacing, and case rather than font contrast.
 - `--text-stat` and `--text-sm` are still defined but not clearly mapped to live selectors.
-- `h4` and `h5` inherit heading styling, but still do not have explicit size tokens.
 - Most text sizing is token-driven and responsive via `clamp()`.
+- Standard slide `h2` selectors use `--text-h2`, keeping their maximum size consistent at `44px`.
+- All semantic headings from `h1` through `h5` use global size tokens.
+- Slide-specific heading selectors may change color, spacing, or line-height, but not their global font size.
 
 ## Recommended Organization
 
@@ -173,6 +198,8 @@ This makes the system simpler and more consistent. The main structure now comes 
 | Hero / primary title | `--text-h1` + `--font-body` + `--weight-bold` |
 | Section title | `--text-h2` + `--font-body` + `--weight-bold` |
 | Subsection title | `--text-h3` + `--font-body` + `--weight-bold` |
+| Card / detail heading | `--text-h4` + `--font-body` + `--weight-bold` |
+| Small heading | `--text-h5` + `--font-body` + `--weight-bold` |
 | KPI / stat value | `--text-stat` + `--font-body` + `--weight-bold` |
 | Intro / lede | `--text-body-lg` + `--font-body` |
 | Standard paragraph | `--text-body` + `--font-body` |

@@ -28,23 +28,31 @@ This is the current shared outer slide layout used by the deck.
 
 | Breakpoint | Left / Right | Top | Bottom |
 | --- | --- | --- | --- |
-| `1920+` | `160px` | `120px` | `72px` |
-| `1440 and below` | `120px` | `96px` | `64px` |
+| `1920+` | `120px` | `100px` | `72px` |
+| `Below 1920px` | `100px` | `80px` | `64px` |
 | `640 and below` | `24px` | `48px` | `32px` |
 
 ### Code mapping
 
 - Shared section padding: `index.html`
 - Shared container width / horizontal margins: `index.html`
-- Desktop default:
-  - `.slide section { padding: 120px 0 72px; }`
-  - `.container { width: calc(100% - 320px); }`
-- `1440 and below`:
-  - `.slide section { padding-top: 96px; padding-bottom: 64px; }`
+- Default below `1920px`:
+  - `.slide section { padding: 80px 0 64px; }`
+  - `.container { width: calc(100% - 200px); }`
+- `1920+`:
+  - `.slide section { padding-top: 100px; padding-bottom: 72px; }`
   - `.container { width: calc(100% - 240px); }`
 - `640 and below`:
   - `.slide section { padding-top: 48px; padding-bottom: 32px; }`
   - `.container { width: calc(100% - 48px); }`
+
+## Shared Heading Spec
+
+- Standard slide `h2` headings use the global `--text-h2` token.
+- `--text-h2` is `clamp(2rem, 4vw, 2.75rem)`, with a maximum size of `44px`.
+- Slide 03 and other standard slide headings no longer use separate maximum font sizes.
+- All slide `h3` headings use the global `--text-h3` token.
+- Semantic headings from `h1` through `h5` use the global typography tokens defined in `globals.css`.
 
 ## Slide Details
 
@@ -53,6 +61,12 @@ This is the current shared outer slide layout used by the deck.
 - Title: `We build & operate AI-Powered businesses shaping Thailand`
 - Support copy: one-partner positioning across software, automation, and ByteDance AI stack
 - Visuals: hero glow, particle network, client logo wall
+- No eyebrow label above the hero title
+
+### Eyebrow Usage
+
+- Slides 01, 02, 03, 05, 06, and 10-15 do not show eyebrow labels.
+- Slides 08 and 09 retain their eyebrow labels.
 
 ### Slide 02 — Who We Are
 
@@ -81,8 +95,12 @@ This is the current shared outer slide layout used by the deck.
 
 ### Slide 07 — Two Pillars
 
-- Title: `Create faster. Understand deeper.`
-- Focus: top-level value proposition before demos
+- Title: `Two things every business needs.`
+- Highlight: `business needs.` uses the yellow accent color
+- Alignment: centered vertically with centered title and pillar content
+- Left pillar: `Create faster.` with production-speed and scalability messaging
+- Right pillar: `Understand deeper.` with real-time business intelligence messaging
+- Pillar icon labels are removed
 
 ### Slide 08 — Create Faster Demo
 
