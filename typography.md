@@ -34,6 +34,24 @@ This makes the system simpler and more consistent. The main structure now comes 
 | `--text-paper-question` | `clamp(2.75rem, 2.2rem + 2vw, 3.625rem)` | CTA paper question |
 | `--btn-font-size` | `clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem)` | Buttons |
 
+### Responsive comparison
+
+| Token | Clamp value | 1920px screen | 1440px screen | 375px screen |
+| --- | --- | --- | --- | --- |
+| `--text-h1` | `clamp(2rem, 5vw, 3.5rem)` | `56px` | `56px` | `32px` |
+| `--text-h2` | `clamp(2rem, 4vw, 3rem)` | `48px` | `48px` | `32px` |
+| `--text-h3` | `clamp(1.5rem, 2.5vw, 2rem)` | `32px` | `32px` | `24px` |
+| `--text-stat` | `clamp(2.25rem, 4vw, 3.5rem)` | `56px` | `56px` | `36px` |
+| `--text-body-lg` | `clamp(1rem, 0.96rem + 0.24vw, 1.125rem)` | `18px` | `18px` | `16.26px` |
+| `--text-body` | `clamp(0.9375rem, 0.915rem + 0.11vw, 1rem)` | `16px` | `16px` | `15.05px` |
+| `--text-sm` | `clamp(0.8125rem, 0.79rem + 0.11vw, 0.875rem)` | `14px` | `14px` | `13.05px` |
+| `--text-xs` | `clamp(0.75rem, 0.73rem + 0.09vw, 0.8125rem)` | `13px` | `12.98px` | `12.02px` |
+| `--text-micro` | `clamp(0.6875rem, 0.67rem + 0.08vw, 0.75rem)` | `12px` | `11.87px` | `11.02px` |
+| `--text-paper-label` | `clamp(1.75rem, 1.35rem + 1.2vw, 2.125rem)` | `34px` | `34px` | `28px` |
+| `--text-paper-alert` | `clamp(2.25rem, 1.8rem + 1.55vw, 2.875rem)` | `46px` | `46px` | `36px` |
+| `--text-paper-question` | `clamp(2.75rem, 2.2rem + 2vw, 3.625rem)` | `58px` | `58px` | `44px` |
+| `--btn-font-size` | `clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem)` | `13px` | `13px` | `12px` |
+
 ## Current CSS Structure
 
 - `body` uses `--font-body`, `--text-body`, weight `400`, and line-height `1.5`

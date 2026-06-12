@@ -12,6 +12,7 @@
   :root {
     --navy: #1a1a4e;
     --navy-soft: #2a2a6e;
+    --text-main: #111111;
     --yellow: #f5c518;
     --white: #ffffff;
     --off-white: #fafaf7;
@@ -22,6 +23,10 @@
     --card-shadow: 0 1px 2px rgba(26,26,78,0.04), 0 8px 24px rgba(26,26,78,0.04);
     --serif: 'Google Sans Flex', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --slide-bg:
+      radial-gradient(ellipse 44% 56% at 83% 34%, rgba(255, 201, 84, 0.44) 0%, rgba(255, 201, 84, 0.24) 33%, rgba(255, 201, 84, 0.08) 58%, rgba(255, 201, 84, 0) 78%),
+      radial-gradient(ellipse 38% 54% at 0% 24%, rgba(247, 238, 154, 0.40) 0%, rgba(247, 238, 154, 0.18) 36%, rgba(247, 238, 154, 0.04) 62%, rgba(247, 238, 154, 0) 80%),
+      linear-gradient(90deg, #fffef8 0%, #fffdfa 22%, #ffffff 48%, #fffdfa 72%, #fff9ef 100%);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,7 +36,7 @@
     overflow: hidden;
     font-family: var(--sans);
     background: var(--white);
-    color: var(--navy);
+    color: var(--text-main);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
@@ -41,13 +46,13 @@
   button { font-family: inherit; cursor: pointer; }
 
   /* ============ TYPOGRAPHY ============ */
-  h1, h2, h3, h4 { font-family: var(--serif); color: var(--navy); font-weight: bold; }
+  h1, h2, h3, h4 { font-family: var(--serif); color: var(--text-main); font-weight: bold; }
   .accent { color: var(--yellow); }
 
   .eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
     font-size: 11px; font-weight: 600; letter-spacing: 1.4px;
-    color: var(--navy); text-transform: uppercase; margin-bottom: 20px;
+    color: var(--text-main); text-transform: uppercase; margin-bottom: 20px;
     white-space: nowrap;
   }
   .eyebrow::before { content: ''; width: 7px; height: 7px; background: var(--yellow); border-radius: 50%; }
@@ -92,12 +97,12 @@
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
     justify-content: center;
-    padding: 56px 0 72px;
+    padding: 120px 0 72px;
     overflow: hidden;
   }
-  .slide section.top-align { justify-content: flex-start; padding-top: 72px; }
+  .slide section.top-align { justify-content: flex-start; padding-top: 120px; }
 
-  .container { max-width: 1280px; margin: 0 auto; padding: 0 80px; width: 100%; }
+  .container { width: calc(100% - 320px); margin: 0 auto; padding: 0; max-width: none; }
 
   /* ============ BUTTONS ============ */
   .btn-primary {
@@ -120,12 +125,9 @@
   }
   .btn-link:hover { color: var(--navy); }
 
-  /* ============ SLIDE: HERO ============ */
+  /* ============ SLIDE 01: HERO ============ */
   .hero {
-    background:
-      radial-gradient(ellipse 50% 55% at 98% 0%, rgba(245,197,24,0.09), transparent 55%),
-      radial-gradient(ellipse 30% 40% at 1% 95%, rgba(26,26,78,0.025), transparent 55%),
-      #FFFDFB;
+    background: var(--slide-bg);
   }
   /* Cursor-follow glow — soft warm light tracking the mouse on the hero. */
   .hero-glow {
@@ -148,7 +150,8 @@
   /* Subtle edge fade to keep particles ambient. */
   .hero::before {
     content: ''; position: absolute; inset: 0; z-index: 2;
-    background: linear-gradient(90deg, rgba(255,253,251,0.55) 0%, rgba(255,253,251,0.18) 36%, rgba(255,253,251,0) 56%);
+    background:
+      linear-gradient(90deg, rgba(255, 255, 252, 0.58) 0%, rgba(255, 255, 252, 0.18) 28%, rgba(255, 255, 252, 0.06) 50%, rgba(255, 255, 252, 0.14) 72%, rgba(255, 255, 252, 0.28) 100%);
     pointer-events: none;
   }
   /* Keep hero text above the gradient, glow, canvas, and overlay. */
@@ -159,6 +162,12 @@
   .hero h1 {
     font-size: var(--text-h1); line-height: 1.14;
     letter-spacing: -1.2px; margin-bottom: 18px;
+  }
+  .hero-heading-line {
+    display: block;
+  }
+  .hero-heading-line--nowrap {
+    white-space: nowrap;
   }
   /* Gradient highlight for "shaping Thailand." in the hero only */
   .hero .accent {
@@ -194,13 +203,13 @@
   }
   .marquee-card--raw img { filter: none; opacity: 0.92; }
   @media (max-width: 900px) { .hero-ecosystem { display: none; } }
-  .hero-copy { text-align: center; max-width: 800px; margin-left: auto; margin-right: auto; }
+  .hero-copy { text-align: center; margin-left: auto; margin-right: auto; }
   .hero-sub {
     font-size: 14.5px; line-height: 1.68; color: #4B5563;
     margin-bottom: 28px; max-width: 640px; margin-left: auto; margin-right: auto;
   }
 
-  /* ============ SLIDE: PROBLEM ============ */
+  /* ============ LEGACY / UNUSED: PROBLEM ============ */
   .problem { background: var(--white); }
   .problem .quote {
     font-family: var(--serif); font-weight: bold;
@@ -230,7 +239,7 @@
   .outcome-col:nth-child(3) .outcome-delta { color: #15803d; }
   .outcome-desc { font-size: 13px; line-height: 1.55; color: var(--body); }
 
-  /* ============ SLIDE: WHO WE ARE ============ */
+  /* ============ SLIDE 02: WHO WE ARE ============ */
   .who { background: var(--off-white); }
   .section-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 36px; }
   .section-intro h2 { font-size: clamp(28px, 3.2vw, 48px); line-height: 1.1; letter-spacing: -1.2px; }
@@ -258,7 +267,7 @@
   .pillar p { font-size: 14px; line-height: 1.65; color: var(--body); margin: 0; }
   .pillar-tag { display: inline-block; font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--navy); padding: 5px 13px; background: var(--yellow); border: none; border-radius: 999px; align-self: flex-start; }
 
-  /* ============ SLIDE: DATA ADVANTAGE ============ */
+  /* ============ SLIDE 03: THE TECHNOLOGY ============ */
   .data { background: var(--off-white); color: var(--navy); position: relative; overflow: hidden; }
   .data::before {
     content: ''; position: absolute; top: -80px; right: -80px;
@@ -291,7 +300,7 @@
   .data-tech-logo { height: 24px; width: auto; object-fit: contain; transition: transform 0.3s ease, filter 0.3s ease; cursor: pointer; }
   .data-tech-logo:hover { transform: scale(1.1); filter: brightness(1.15); }
 
-  /* ============ SLIDE: EXCLUSIVITY ============ */
+  /* ============ SLIDE 04: EXCLUSIVITY ============ */
   .exclusivity { background: radial-gradient(ellipse at 0% 100%, rgba(168, 148, 220, 0.28) 0%, transparent 55%), radial-gradient(ellipse at 100% 0%, rgba(168, 148, 220, 0.12) 0%, transparent 45%), var(--white); }
   .exclusivity section { justify-content: center; }
   .exclusivity .inner { text-align: center; max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0; }
@@ -308,7 +317,7 @@
   .excl-badge { display: inline-block; border: 2px solid rgba(59, 130, 246, 0.8); border-radius: 999px; padding: 13px 32px; font-size: 13px; font-weight: 600; color: rgb(59, 130, 246); letter-spacing: 0.3px; margin-top: 22px; background: linear-gradient(90deg, rgba(59, 130, 246, 0.12) 0%, rgba(255, 255, 255, 0.25) 25%, rgba(59, 130, 246, 0.15) 50%, rgba(255, 255, 255, 0.25) 75%, rgba(59, 130, 246, 0.12) 100%); background-size: 200% 100%; box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), 0 0 12px rgba(59, 130, 246, 0.2); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; animation: badgeShimmer 2.2s ease-in-out infinite; }
   .excl-badge:hover { animation: none; transform: translateY(-3px); border-color: rgb(59, 130, 246); box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 0 18px rgba(59, 130, 246, 0.35); }
 
-  /* ============ SLIDE: THE STACK ============ */
+  /* ============ SLIDE 05: THE STACK ============ */
   .stack { background: var(--off-white); }
   .stack .section-intro { margin-bottom: 32px; }
   .stack-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); background: transparent; overflow: hidden; }
@@ -322,7 +331,7 @@
   .stack-col li { font-size: 11px; font-weight: 600; color: var(--navy); padding: 4px 0; padding-right: 8px; line-height: 1.3; }
   .stack-col li::before { content: '→ '; color: var(--yellow); font-weight: bold; }
 
-  /* ============ SLIDE: TWO PILLARS ============ */
+  /* ============ SLIDE 07: TWO PILLARS ============ */
   .pillars-section { background: #0E0E3E; }
   .pillars-section .eyebrow { color: var(--yellow); }
   .pillars-section .eyebrow::before { background: var(--yellow); }
@@ -336,7 +345,7 @@
   .two-pillar h3 { font-size: clamp(24px, 2.8vw, 40px); margin-bottom: 18px; line-height: 1.1; letter-spacing: -0.8px; color: var(--white); }
   .two-pillar p { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.60); }
 
-  /* ============ SLIDE: CREATE FASTER DEMO ============ */
+  /* ============ SLIDE 08: CREATE FASTER DEMO ============ */
   .create-faster { background: #0E0E3E; position: relative; overflow: hidden; }
   .create-faster.cf-gen-active { overflow: visible; }
   .create-faster::before {
@@ -519,7 +528,7 @@
 
   @media (max-width: 1024px) { .create-faster-layout { grid-template-columns: 1fr; gap: 36px; } }
 
-  /* ============ SLIDE: UNDERSTAND DEEPER DEMO ============ */
+  /* ============ SLIDE 09: UNDERSTAND DEEPER DEMO ============ */
   .understand { background: #0E0E3E; position: relative; overflow: hidden; }
   .understand::before {
     content: ''; position: absolute; bottom: -140px; left: -90px;
@@ -697,7 +706,7 @@
     .ud-dash { grid-template-columns: 1fr; }
   }
 
-  /* ============ SLIDE: HOW WE WORK ============ */
+  /* ============ SLIDE 10: HOW WE WORK ============ */
   .process { background: var(--off-white); }
   .process .section-intro { margin-bottom: 32px; }
   .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -711,7 +720,7 @@
   .process-step li { font-size: 12px; color: var(--body); line-height: 1.45; padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
   .process-step li::before { content: '→'; color: var(--yellow); font-weight: bold; font-size: 11px; line-height: 1.5; }
 
-  /* ============ SLIDE: OUTCOMES ============ */
+  /* ============ SLIDE 06: OUTCOMES ============ */
   .outcomes { background: radial-gradient(ellipse 55% 45% at 78% 8%, #f8ff80 0%, transparent 55%), radial-gradient(ellipse 50% 45% at 15% 85%, #fffae0 0%, transparent 50%), radial-gradient(ellipse 45% 42% at 65% 80%, #ffdece 0%, transparent 50%), #ffffff; }
   .outcomes .eyebrow { color: var(--navy); }
   .outcomes .eyebrow::before { background: var(--navy); }
@@ -734,7 +743,7 @@
   .outcome-card-title { font-size: 13px; font-weight: 700; color: #1a1f3c; margin-bottom: 6px; }
   .outcome-card-desc { font-size: 12px; font-weight: 400; line-height: 1.45; color: #555; }
 
-  /* ============ SLIDE: INDUSTRIES ============ */
+  /* ============ SLIDE 11: INDUSTRIES ============ */
   .industries { background: var(--white); }
   .industries .section-intro { margin-bottom: 24px; }
   .industry-tabs { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -752,7 +761,7 @@
   .industry-cases li:last-child { border-bottom: none; }
   .industry-cases li::before { content: ''; width: 5px; height: 5px; background: var(--yellow); border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
 
-  /* ============ SLIDE: LOGO WALL ============ */
+  /* ============ LEGACY / UNUSED: LOGO WALL ============ */
   .logos { background: var(--off-white); }
   .logos section { flex-direction: column; justify-content: center; }
   .logos-label { text-align: center; font-size: 10px; letter-spacing: 1.6px; font-weight: 600; color: var(--meta); margin-bottom: 36px; }
@@ -762,7 +771,7 @@
   .logo-item:nth-last-child(-n+6) { border-bottom: none; }
   .logo-item:hover { opacity: 1; }
 
-  /* ============ SLIDE: CASE STUDIES ============ */
+  /* ============ SLIDE 12: CASE STUDIES ============ */
   .cases { background: var(--white); }
   .cases .section-intro { margin-bottom: 24px; }
   .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -781,7 +790,7 @@
   .case-result-num .up { color: #15803d; }
   .case-result-label { font-size: 11px; color: var(--body); line-height: 1.35; }
 
-  /* ============ SLIDE: PARTNERSHIP ============ */
+  /* ============ SLIDE 13: PARTNERSHIP ============ */
   .partnership { background: var(--off-white); }
   .partnership .section-intro { margin-bottom: 32px; }
   .phases { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 4px; background: var(--white); }
@@ -792,7 +801,7 @@
   .phase .who-tag { font-size: 11px; color: var(--meta); letter-spacing: 0.3px; margin-bottom: 16px; }
   .phase p { font-size: 13px; line-height: 1.55; color: var(--body); }
 
-  /* ============ SLIDE: TWO WAYS ============ */
+  /* ============ SLIDE 14: GET STARTED ============ */
   .ways { background: var(--white); }
   .ways .section-intro { margin-bottom: 32px; }
   .ways-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -807,7 +816,7 @@
   .way p { font-size: 14px; line-height: 1.6; color: var(--body); margin-bottom: 24px; transition: color 0.3s; }
   .way-cta { font-size: 10px; letter-spacing: 1.4px; font-weight: 600; color: var(--navy); padding-bottom: 6px; border-bottom: 1px solid var(--navy); display: inline-flex; align-items: center; gap: 7px; transition: all 0.3s; background: none; border-top: none; border-left: none; border-right: none; }
 
-  /* ============ SLIDE: PRICING ============ */
+  /* ============ SLIDE 15: PRICING ============ */
   .pricing { background: var(--off-white); }
   .pricing .section-intro { margin-bottom: 28px; }
   .pricing-factors { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
@@ -818,7 +827,7 @@
   .pricing-footer p { font-family: var(--serif); font-weight: bold; font-size: 24px; color: var(--navy); letter-spacing: -0.8px; max-width: 680px; margin: 0 auto; line-height: 1.3; }
   .pricing-footer p span { color: var(--yellow); font-style: italic; }
 
-  /* ============ SLIDE: CTA ============ */
+  /* ============ LEGACY / UNUSED: CTA ============ */
   .cta-slide { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
   .cta-slide::before { content: ''; position: absolute; top: -160px; right: -160px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(245,197,24,0.18), transparent 60%); pointer-events: none; }
   .cta-grid { display: grid; grid-template-columns: 1fr auto; gap: 64px; align-items: center; position: relative; }
@@ -833,6 +842,104 @@
   .cta-contact { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   .cta-contact-item { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
   .cta-contact-item strong { display: block; color: rgba(255,255,255,0.85); font-size: 11px; letter-spacing: 1.2px; font-weight: 600; font-family: var(--sans); margin-bottom: 4px; }
+
+  /* ============ UNIFIED SLIDE BACKGROUND ============ */
+  .problem,
+  .who,
+  .data,
+  .exclusivity,
+  .stack,
+  .pillars-section,
+  .create-faster,
+  .understand,
+  .process,
+  .outcomes,
+  .industries,
+  .logos,
+  .cases,
+  .partnership,
+  .ways,
+  .pricing,
+  .cta-slide {
+    background: var(--slide-bg);
+  }
+
+  .pillars-section .eyebrow,
+  .create-faster-left .eyebrow,
+  .understand-left .eyebrow,
+  .cta-slide .eyebrow,
+  .pillars-section h2,
+  .create-faster-left h2,
+  .understand-left h2,
+  .cta-slide h2,
+  .cta-contact-item strong {
+    color: var(--text-main);
+  }
+
+  .two-pillar p,
+  .create-faster-left p,
+  .understand-left p,
+  .cta-slide p,
+  .cta-meta,
+  .cta-contact-item {
+    color: var(--body);
+  }
+
+  .two-pillars {
+    border-top-color: var(--line);
+    border-bottom-color: var(--line);
+  }
+
+  .two-pillar {
+    border-right-color: var(--line);
+  }
+
+  .two-pillar h3,
+  .two-pillar-icon {
+    color: var(--text-main);
+  }
+
+  /* ============ MAIN TEXT COLOR ============ */
+  .problem .quote,
+  .outcome-tag,
+  .outcome-num,
+  .outcome-col:nth-child(2) .outcome-delta,
+  .pillar h3,
+  .pillar-tag,
+  .data,
+  .data h2,
+  .data-stat-num,
+  .data-tech-brand,
+  .excl-body strong,
+  .stack-col-tag,
+  .stack-col li,
+  .ud-report-title,
+  .ud-widget-icon,
+  .ud-widget-title,
+  .ud-table td,
+  .ud-bar-name,
+  .ud-bar-val,
+  .ud-legend-row,
+  .ud-move,
+  .ud-move-tag,
+  .process-step-label,
+  .outcomes .eyebrow,
+  .outcomes h2,
+  .outcome-card-num,
+  .industry-cases-label,
+  .industry-cases li,
+  .logo-item,
+  .case-tag,
+  .case-result-num,
+  .way-cta,
+  .pricing-factor h4,
+  .pricing-footer p {
+    color: var(--text-main);
+  }
+
+  .way-cta {
+    border-bottom-color: var(--text-main);
+  }
 
   /* ============ SLIDE NAVIGATION PILL ============ */
   .slide-controls {
@@ -983,8 +1090,16 @@
   .present-launch-btn:hover { opacity: 1 !important; background: rgba(245,197,24,0.15) !important; }
 
   /* ============ RESPONSIVE ============ */
+  @media (max-width: 1439px) {
+    .slide section {
+      padding-top: 96px;
+      padding-bottom: 64px;
+    }
+    .slide section.top-align { padding-top: 96px; }
+    .container { width: calc(100% - 240px); }
+  }
+
   @media (max-width: 1024px) {
-    .container { padding: 0 32px; }
     .cta-grid { grid-template-columns: 1fr; gap: 40px; }
     .cta-actions { align-items: flex-start; }
     .who-pillars, .process-steps, .case-grid, .outcomes-grid, .pricing-factors { grid-template-columns: 1fr 1fr; }
@@ -1003,7 +1118,12 @@
   }
 
   @media (max-width: 640px) {
-    .container { padding: 0 20px; }
+    .slide section {
+      padding-top: 48px;
+      padding-bottom: 32px;
+    }
+    .slide section.top-align { padding-top: 48px; }
+    .container { width: calc(100% - 48px); }
     .slide-logo { left: 20px; top: 16px; }
     .who-pillars, .process-steps, .case-grid, .data-stats, .outcomes-cards, .pricing-factors { grid-template-columns: 1fr; }
     .outcomes-layout { grid-template-columns: 1fr; }
@@ -1026,7 +1146,7 @@
 <!-- Slides -->
 <div class="slides-container" id="slidesContainer">
 
-  <!-- SLIDE 0: HERO -->
+  <!-- SLIDE 01: HERO -->
   <div class="slide hero" data-state="active" data-logo="dark">
     <section>
       <!-- Cursor-follow warm glow (behind particles + text) -->
@@ -1038,7 +1158,8 @@
           <div class="hero-copy">
             <div class="eyebrow fade-up">mtel × basicware · enterprise ai partner</div>
             <h1 class="fade-up delay-1">
-              We build, operate, and power AI for<br/>the businesses <span class="accent">shaping Thailand.</span>
+              We&nbsp;build&nbsp;&amp;&nbsp;operate&nbsp;AI-Powered<br/>
+              <span class="hero-heading-line hero-heading-line--nowrap">businesses <span class="accent">shaping Thailand</span></span>
             </h1>
             <p class="hero-sub fade-up delay-2">
               One partner. Software house DNA, AI workflow automation, and the ByteDance AI stack converged into a single operating system for modern enterprise.
@@ -1096,7 +1217,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 1: WHO WE ARE -->
+  <!-- SLIDE 02: WHO WE ARE -->
   <div class="slide who" data-state="future" data-logo="dark">
     <section>
       <div class="container">
@@ -1143,7 +1264,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 3: TECHNOLOGY STACK -->
+  <!-- SLIDE 03: THE TECHNOLOGY -->
   <div class="slide data" data-state="future" data-logo="dark">
     <section>
       <div class="container">
@@ -1186,7 +1307,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 4: EXCLUSIVITY -->
+  <!-- SLIDE 04: EXCLUSIVITY -->
   <div class="slide exclusivity" data-state="future" data-logo="dark">
     <section>
       <div class="container">
@@ -1208,7 +1329,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 5: THE STACK -->
+  <!-- SLIDE 05: THE STACK -->
   <div class="slide stack" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
@@ -1267,7 +1388,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 6: OUTCOMES -->
+  <!-- SLIDE 06: OUTCOMES -->
   <div class="slide outcomes" data-state="future" data-logo="dark">
     <section>
       <div class="container">
@@ -1325,8 +1446,8 @@
     </section>
   </div>
 
-  <!-- SLIDE 7: TWO PILLARS -->
-  <div class="slide pillars-section" data-state="future" data-logo="inv">
+  <!-- SLIDE 07: TWO PILLARS -->
+  <div class="slide pillars-section" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
         <div class="reveal">
@@ -1349,7 +1470,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 8: CREATE FASTER DEMO -->
+  <!-- SLIDE 08: CREATE FASTER DEMO -->
   <div class="slide create-faster" data-state="future" data-logo="inv">
     <section>
       <div class="container">
@@ -1402,7 +1523,7 @@
     </div>
   </div>
 
-  <!-- SLIDE 9: UNDERSTAND DEEPER DEMO -->
+  <!-- SLIDE 09: UNDERSTAND DEEPER DEMO -->
   <div class="slide understand" data-state="future" data-logo="inv">
     <section>
       <div class="container">
@@ -1674,7 +1795,7 @@
   </div>
 
 
-  <!-- SLIDE 9: INDUSTRIES -->
+  <!-- SLIDE 11: INDUSTRIES -->
   <div class="slide industries" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
@@ -1715,7 +1836,7 @@
   </div>
 
 
-  <!-- SLIDE 11: CASE STUDIES -->
+  <!-- SLIDE 12: CASE STUDIES -->
   <div class="slide cases" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
@@ -1796,7 +1917,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 12: PARTNERSHIP -->
+  <!-- SLIDE 13: PARTNERSHIP -->
   <div class="slide partnership" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
@@ -1831,7 +1952,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 13: THREE WAYS TO START -->
+  <!-- SLIDE 14: GET STARTED -->
   <div class="slide ways" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
@@ -1863,7 +1984,7 @@
     </section>
   </div>
 
-  <!-- SLIDE 14: PRICING -->
+  <!-- SLIDE 15: PRICING -->
   <div class="slide pricing" data-state="future" data-logo="dark">
     <section class="top-align">
       <div class="container">
@@ -1895,7 +2016,7 @@
 <!-- Bottom navigation pill -->
 <div class="slide-controls" id="slideControls">
   <button class="slide-nav-btn" id="prevBtn" disabled title="Previous slide">←</button>
-  <div class="slide-count" id="slideCount"><span id="currentSlideNum">01</span> / <span id="totalSlideNum">14</span></div>
+  <div class="slide-count" id="slideCount"><span id="currentSlideNum">01</span> / <span id="totalSlideNum">15</span></div>
   <button class="slide-nav-btn" id="nextBtn" title="Next slide">→</button>
   <div class="pill-sep"></div>
   <button class="slide-nav-btn" id="overviewBtn" onclick="openOverview()" title="All slides (O)">
