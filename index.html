@@ -479,18 +479,18 @@
   }
   .cf-row-stage.visible { display: block; }
 
-  /* ---- Video grid: 2 rows × 4 cards (landscape) ---- */
+  /* ---- Video grid: 2 rows × 4 cards (square 1:1) ---- */
   .cf-video-row {
     display: grid;
     grid-template-columns: repeat(4, 280px);
-    grid-template-rows: repeat(2, 158px);
+    grid-template-rows: repeat(2, 280px);
     gap: 14px;
   }
 
-  /* ---- Individual video card — landscape 16:9 ---- */
+  /* ---- Individual video card — square 1:1 ---- */
   .cf-video-card {
     width: 280px;
-    height: 158px;  /* 280 × 9/16 = 157.5px ≈ 158px */
+    height: 280px;
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
@@ -2297,7 +2297,7 @@
         // Phase 3 (800 + 500ms): after card settles, stagger in video cards
         setTimeout(() => {
           genBtn.disabled = false;
-          genBtn.textContent = 'RESET ↺';
+          genBtn.textContent = 'GENERATE';
           buildVideoCards();
           rowStage.classList.add('visible');
           staggerReveal();
